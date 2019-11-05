@@ -1,0 +1,16 @@
+.categoryButton {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border: 1px solid lightslategray;
+  color: lightslategray;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.categoryButton:hover {
+  background-color: lightslategray;
+  color: white;
+}

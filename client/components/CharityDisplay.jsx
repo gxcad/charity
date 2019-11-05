@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import Charity from './Charity'
 
 const CharityDisplay = () => {
 
   return (
-    <React.Fragment>
-
-    </React.Fragment>
+    <div>
+      <Charity />
+      <Charity />
+    </div>
 
   )
 }

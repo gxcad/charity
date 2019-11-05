@@ -6,7 +6,7 @@ const Login = ({/* INSERT PROPS HERE */ }) => {
   return (
 
     <React.Fragment>
-      <p> i'm inside the login component </p>
+      {/* <p> i'm inside the login component </p> */}
     </React.Fragment>
 
   )
