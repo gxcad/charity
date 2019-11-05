@@ -1,6 +1,6 @@
-import Login from './client/containers/Login.jsx';
-import Search from './client/containers/Search.jsx';
-import Donations from './client/containers/Donations.jsx';
+import Login from './containers/Login.jsx';
+import Search from './containers/Search.jsx';
+import Donations from './containers/Donations.jsx';
 import React, { useState } from 'react';
 
 const App = () => {

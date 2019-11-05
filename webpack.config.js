@@ -1,35 +1,52 @@
-const webpack = require('webpack');
-const path = require('path');
-const status = process.env.NODE_ENV;
+const path = require("path");
 
 module.exports = {
-  mode: status,
-  entry: './index.js',
+  entry: "./client/index.js",
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/build/",
+    filename: "bundle.js"
+  },
+  mode: process.env.NODE_ENV,
+  devServer: {
+    contentBase: path.join(__dirname, "./client/assets"),
+    publicPath: "http://localhost:8080/build/",
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
   module: {
     rules: [
       {
-        test: /.jsx?/i,
-        loader: 'babel-loader',
+        test: /\.jsx?/,
         exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react']
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"]
+          }
         }
       },
       {
-        test: /.css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-        exclude: /node_modules/,
+        test: /(css|scss)$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|woff|woff2|eot|ttf|svg|ico)$/,
+        use: [
+          {
+            // loads files as base64 encoded data url if image file is less than set limit
+            loader: "url-loader",
+            options: {
+              // if file is greater than the limit (bytes), file-loader is used as fallback
+              limit: 8192
+            }
+          }
+        ]
       }
-    ]},
-    devServer: {
-      publicPath: '/build',
-      contentBase: path.resolve(__dirname, 'assets')
-    },
-    resolve: {
-      extensions: ['*', '.js', '.jsx'],
-    }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 };
