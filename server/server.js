@@ -1,16 +1,20 @@
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
-const PORT = 8080;
-
 const app = express();
+const PORT = 3000;
 
-app.use(cors());
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use('/', express.static('client/assets'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './../assets.index.html'))
+  // res.sendFile(path.resolve(__dirname, '../client/assets/index.html'))
+  console.log('here inside of / get request');
 })
 
 app.listen(PORT, () => {
-  console.log('listening on port 8080')
+  console.log(`listening on port ${PORT}`);
 })
