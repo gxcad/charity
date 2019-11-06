@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const Charity = () => {
+const Charity = (props) => {
 
   return (
     <div>
       <p>Charity Name <br />
-      Charity Mission Statement (summary)
+      {props.value}
       <button>Donate</button></p>
       
     </div>
