@@ -1,26 +1,54 @@
 import CharityDisplay from './CharityDisplay.jsx';
 import React, { useState } from 'react';
 
-const handleClick = (event) => {
-  console.log('event here on handleClick', event);
-  // event.setAttribute
-  // button that triggered will add/remove class property until it appears darkened to signify it is seleted
-}
 
-const SearchArea = ({/* INSERT PROPS HERE */ }) => {
+
+const SearchArea = () => {
+  const [isCategory, setIsCategory] = useState([ 
+  { '0': false, name: 'Animals' },
+  { '1': false, name: 'Arts, Culture, Humanities' },
+  { '2': false, name: 'Community Development' },
+  { '3': false, name: 'Education' },
+  { '4': false, name: 'Environment' },
+  { '5': false, name: 'Health' },
+  { '6': false, name: 'Human and Civil Rights' },
+  { '7': false, name: 'Human Services' },
+  { '8': false, name: 'International' },
+  { '9': false, name: 'Research and Public Policy' } ]
+  );
+  const [isTrueCategory, setIsChecked] = useState([]);
+  const updateCategory = (index)=>{
+    const temp = [];
+    for (let i = 0; i < isCategory.length; i += 1){
+      if (i !== index){
+        temp.push(isCategory[i]);
+      } else {
+        isCategory[i][i] = !isCategory[i][i];
+        temp.push(isCategory[i]);
+      } 
+    }
+    return temp;
+  } 
+  const falseButtons = [];
+  const trueButtons = [];
+  isCategory.forEach((category, index) => {
+    const button = (<button type='submit' key={'button' + index} id={'button' + index} className='categoryButton' onClick={()=>{
+      const newState = updateCategory(index);
+      setIsCategory(newState);
+    }}>{category.name}</button>)
+    if(category[index]){
+      trueButtons.push(button);
+    }else {
+      falseButtons.push(button);
+    }
+    
+  });
+
   return (
-    <div>
-      <button type='submit' key='button1' class='categoryButton'>Animals</button>
-      <button type='submit' key='button1' class='categoryButton'>Arts, Culture, Humanities</button>
-      <button type='submit' key='button2' class='categoryButton'>Community Development</button>
-      <button type='submit' key='button3' class='categoryButton'>Education</button>
-      <button type='submit' key='button4' class='categoryButton'>Environment</button>
-      <button type='submit' key='button5' class='categoryButton'>Health</button>
-      <button type='submit' key='button6' class='categoryButton'>Human and Civil Rights</button>
-      <button type='submit' key='button7' class='categoryButton'>Human Services</button>
-      <button type='submit' key='button8' class='categoryButton'>International</button>
-      <button type='submit' key='button9' class='categoryButton'>Research and Public Policy</button>
-      <button type='submit' key='submitCategories' id='submitCategories'>Submit</button>
+    <div id='renderArea'>
+      {falseButtons}
+    <hr></hr>
+    {trueButtons}
     </div>
 
   )
