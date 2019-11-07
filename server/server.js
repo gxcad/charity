@@ -9,15 +9,51 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const charityController = require('./controllers/charityController');
-const redisController = require('./controllers/redisController');
+const sessionController = require('./controllers/sessionController');
+const authController = require('./controllers/authController');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/api', redisController.getData)
+app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
+  const { username, isLoggedIn } = res.locals;
+  let data;
+  if (isLoggedIn) {
+    data = { isLoggedIn, username };
+  } else {
+    data = { isLoggedIn };
+  }
+  return res.status(200).json(data);
+});
 
-app.get('/api/fetchData', charityController.fetchData, redisController.setData, (req, res) => {
-  res.json("hi");
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
+});
+
+app.use('/build', express.static(path.join(__dirname, 'build')));
+
+
+// app.use('/api', (req, res) => {
+//   console.log('route is working', req.body);
+//   res.status(200).json({ message: 'hi' });
+// });
+
+
+// sessionController.verifySSID,
+
+app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
+  const { isLoggedIn, username } = res.locals;
+  return res.status(200).json({ isLoggedIn, username });
+});
+
+app.post('/login', authController.verifyUser, sessionController.setSSID, (req, res) => {
+  const { isLoggedIn, username } = res.locals;
+  return res.status(200).json({ isLoggedIn, username });
+});
+
+app.get('/api/fetchData', charityController.fetchData, (req, res) => {
+  return res.json('hi');
 });
 
 
@@ -26,7 +62,7 @@ Catch all routes that do not exist
 **/
 
 app.use('*', (req, res) => {
-  res.sendStatus(404);
+  return res.sendStatus(404);
 })
 
 

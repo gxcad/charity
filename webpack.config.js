@@ -4,16 +4,16 @@ module.exports = {
   entry: "./client/index.js",
   output: {
     path: path.resolve(__dirname, "build"),
-    publicPath: "/build/",
+    // publicPath: "/build/",
     filename: "bundle.js"
   },
   mode: process.env.NODE_ENV,
   devServer: {
     contentBase: path.join(__dirname, "./client/assets"),
-    publicPath: "http://localhost:8080/build/",
+    publicPath: "http://localhost:8080/build",
     proxy: {
-      '/api': 'http://localhost:3000/',
-      '/graphql': 'http://localhost:3000/',
+      '/': 'http://localhost:3000',
+      '/api': 'http://localhost:3000'
     }
   },
   module: {

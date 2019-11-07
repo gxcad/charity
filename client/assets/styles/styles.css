@@ -1,0 +1,68 @@
+
+.login-container, .signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px red solid;
+  height: 60vh;
+  background-color: lightblue;
+}
+
+.input-container {
+  border: 1px red solid;
+  width: 30%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.usernameInputs, .passwordInputs {
+  border: 1px red solid;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-buttons, .signup-buttons {
+  justify-content: space-around;
+  width: 150px;
+  height: 50px;
+  display: flex;
+  border: 1px red solid;
+}
+
+.sign-up, .login {
+  width: 70px;
+  height: 40px;
+}
+
+.categoryButton {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border: 1px solid lightslategray;
+  color: lightslategray;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.categoryButton:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+.categoryButtonSelected {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: lightslategray;
+  color: white;
+}
