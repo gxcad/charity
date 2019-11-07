@@ -17,23 +17,26 @@ const Search = ({
   isInterested,
   setIsSearchNumber
 }) => {
-  
-  const arrayOfCategories = isFetchedCategoryData.map((data, index) => {
-    return (<Categories
-      name={data.name}
-      mission={data.mission}
-      url={data.url}
-      tagLine={data.tagLine}
-      score={data.score}
-      stars={data.stars}
-      categoryName={data.categoryName}
-      location={data.location}
-      setIsInterested={setIsInterested}
-      data={data}
-      isInterested={isInterested}
-      index={index}
-    />);
-  })
+  let arrayOfCategories
+  if (isFetchedCategoryData && isFetchedCategoryData.length > 0) {
+    arrayOfCategories = isFetchedCategoryData.map((data, index) => {
+      return (<Categories
+        name={data.name}
+        mission={data.mission}
+        url={data.url}
+        tagLine={data.tagLine}
+        score={data.score}
+        stars={data.stars}
+        categoryName={data.categoryName}
+        location={data.location}
+        setIsInterested={setIsInterested}
+        data={data}
+        isInterested={isInterested}
+        index={index}
+      />);
+    })
+  }
+
   return (
     <div className="search-container">
       <Tabs
@@ -59,17 +62,20 @@ const Search = ({
   )
 }
 const Interests = ({ isInterested, setIsInterested }) => {
-  const interestedChildren = isInterested.map((obj) => {
-    return (<InterestChild
-      url={obj.url}
-      name={obj.name}
-      tagLine={obj.tagLine}
-      stars={obj.stars}
-      categoryName={obj.categoryName}
-      setIsInterested={setIsInterested}
-      isInterested={isInterested}
-    />);
-  })
+  let interestedChildren;
+  if (isInterested && isInterested.length > 0) {
+    interestedChildren = isInterested.map((obj) => {
+      return (<InterestChild
+        url={obj.url}
+        name={obj.name}
+        tagLine={obj.tagLine}
+        stars={obj.stars}
+        setIsInterested={setIsInterested}
+        isInterested={isInterested}
+      />);
+    })
+  }
+
   return (
     <div>
       {interestedChildren ? interestedChildren : false}

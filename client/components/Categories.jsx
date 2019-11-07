@@ -23,7 +23,6 @@ const Categories = ({
   })
 
   return (
-
     <div>
       <h1>{name}</h1>
       <h3>{categoryName}<img src={stars}></img></h3>
