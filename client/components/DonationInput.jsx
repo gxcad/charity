@@ -1,35 +1,44 @@
 import React, { useState } from 'react';
 
-const DonationInput = ({ isCharity, setIsCharity }) => {
+const DonationInput = ({ username, isCharity, setIsCharity }) => {
+  
   const [isCharityIn, setIsCharityIn] = useState('');
   const [isAmountIn, setIsAmountIn] = useState('')
 
   function submitting(e) {
     e.preventDefault()
-    const addArr = isCharity.slice();
-    const obj = { name: isCharityIn, donatedAmount: isAmountIn };
-    
-    fetch("/", {
+    console.log('submitting donation');
+    const charityList = isCharity.slice();
+
+    const donation = { 
+      username: username,
+      charityName: isCharityIn, 
+      amount: isAmountIn 
+    };
+
+    fetch(`/donation`, {
       method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(obj)
-      }
-    )
-    .then(res => res.json())
-    .then(
-      addArr.push(obj),
-      setIsCharityIn(''),
-      setIsAmountIn(''),
-      setIsCharity(addArr)
-    )
-
-    .catch(err => console.log(err))
-   
+      body: JSON.stringify(donation)
+    })
+      .then(res => res.json())
+      .then(data => {
+        const { success } = data;
+        console.log(data)
+        if (success) {
+          console.log('success. updating state');
+          setIsCharityIn('');
+          setIsAmountIn('');
+          charityList.push(donation)
+          console.log(charityList)
+          setIsCharity(charityList);
+        }
+      })
   }
+     
   return (
-
     <div>
       <br />
       <form onSubmit={submitting}>

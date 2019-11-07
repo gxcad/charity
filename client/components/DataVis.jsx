@@ -87,7 +87,7 @@ function sortForPie(arr, sortBy, accType = undefined){
 }
 
 const DataVis = ({ isCharity }) => {
-  let total = 0;
+  const sum = isCharity ? isCharity.reduce((acc, val) => acc + Number(val.amount), 0) : 0;
   const obj = {};
 
   
@@ -106,7 +106,7 @@ const DataVis = ({ isCharity }) => {
   
     <div>
       <h1>Data Visual</h1>
-      <p>Total {total}</p>
+      <p>Total: {sum}</p>
       {pie}
       <ul>
         
