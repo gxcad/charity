@@ -56,7 +56,31 @@ sessionController.verifySSID = (req, res, next) => {
 };
 
 sessionController.deleteSSID = async (req, res, next) => {
-
-};
+  console.log('deleteSSID');
+  const { ssid } = req.cookies;
+  console.log('im a cookie: ', ssid)
+  if (!ssid) {
+    return next({
+      log: 'deleteSSID: invalid input',
+      message: 'Invalid input',
+    });
+  }
+  const query = {
+    text: `DELETE FROM sessions WHERE uuid = $1`,
+    values: [ssid],
+  };
+  try {
+    await db.query(query);
+    res.clearCookie('ssid');
+    res.locals.isLoggedIn = false;
+    next();
+  } catch (error) {
+    next({
+      log: `deleteSSID: ${error}`,
+      status: 500,
+      message: 'Internal error',
+    })
+  }
+}
 
 module.exports = sessionController;
