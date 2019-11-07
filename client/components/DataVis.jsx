@@ -15,10 +15,10 @@ const DataVis = ({ isCharity }) => {
   //   total += Number(obj.donatedAmount);
   // })
   return (
-    <div>
+    <div id='pie-container'>
       <h1>Data Visual</h1>
       <p>Total {total}</p>
-      {pie}
+      <div id='pie'>{pie}</div>
     </div>
   )
 }
