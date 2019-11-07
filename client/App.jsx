@@ -63,6 +63,7 @@ const App = () => {
         setPassword('');
         setIsLoggedIn(isLoggedIn);
       })
+      .catch(err => console.error(err))
   }
 
   const loginSignup = () => {
