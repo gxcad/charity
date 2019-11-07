@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const charityController = require('./controllers/charityController');
 const sessionController = require('./controllers/sessionController');
 const authController = require('./controllers/authController');
+const donationController = require('./controllers/donationController');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,10 +21,10 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
 });
 app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
-  const { username, isLoggedIn } = res.locals;
+  const { username, isLoggedIn, allDonations } = res.locals;
   let data;
   if (isLoggedIn) {
-    data = { isLoggedIn, username };
+    data = { isLoggedIn, username, allDonations };
   } else {
     data = { isLoggedIn };
   }
@@ -45,6 +46,11 @@ app.use('/build', express.static(path.join(__dirname, 'build')));
 
 
 // sessionController.verifySSID,
+app.post('/getdonations',  (req, res) => {
+  console.log('here', req.body)
+  return res.json('hello')
+  // return res.status(200).json({ allDonations: res.locals.allDonations });
+});
 
 app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
   const { isLoggedIn, username } = res.locals;
@@ -59,6 +65,11 @@ app.post('/login', authController.verifyUser, sessionController.setSSID, (req, r
 app.get('/api/fetchData', charityController.fetchData, (req, res) => {
   return res.json('hi');
 });
+
+app.post('/donation', donationController.postDonation, (req, res) => {
+  return res.status(200).json({ success: res.locals.success });
+});
+
 
 
 /*
