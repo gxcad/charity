@@ -43,13 +43,18 @@ categoryName: 'International',
 location: 'CA' } ] ]
 
 
+function sortForPie(arr){
+  
+
+}
+
 
 
 const DataVis = ({ isCharity }) => {
   let total = 0;
   const obj = {};
 
-  const pie = <PieChart
+  const pie = <PieChart className='pieChart'
   data={[
     { title: 'One', value: 10, color: '#E38627' },
     { title: 'Two', value: 15, color: '#C13C37' },
