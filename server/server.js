@@ -1,23 +1,30 @@
 require('dotenv').config()
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const PORT = 3000;
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const charityController = require('./controllers/charityController')
+const charityController = require('./controllers/charityController');
+const redisController = require('./controllers/redisController');
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.get('/api/fetchData', charityController.fetchData, (req, res) => {
+app.get('/api', redisController.getData)
+
+app.get('/api/fetchData', charityController.fetchData, redisController.setData, (req, res) => {
   res.json("hi");
 });
+
 
 /*
 Catch all routes that do not exist
 **/
+
 app.use('*', (req, res) => {
   res.sendStatus(404);
 })
