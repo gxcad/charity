@@ -17,6 +17,7 @@ const Search = ({
   isInterested,
   setIsSearchNumber
 }) => {
+  
   const arrayOfCategories = isFetchedCategoryData.map((data, index) => {
     return (<Categories
       name={data.name}
@@ -64,6 +65,7 @@ const Interests = ({ isInterested, setIsInterested }) => {
       name={obj.name}
       tagLine={obj.tagLine}
       stars={obj.stars}
+      categoryName={obj.categoryName}
       setIsInterested={setIsInterested}
       isInterested={isInterested}
     />);
@@ -81,7 +83,8 @@ const InterestChild = ({
   stars,
   url,
   setIsInterested,
-  isInterested
+  isInterested,
+  categoryName
 }) => {
   return (
     <div>

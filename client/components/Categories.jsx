@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 const Categories = ({
   name,
   mission,
@@ -21,7 +21,9 @@ const Categories = ({
       </React.Fragment>
     );
   })
+
   return (
+
     <div>
       <h1>{name}</h1>
       <h3>{categoryName}<img src={stars}></img></h3>

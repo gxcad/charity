@@ -72,14 +72,6 @@ const CharityDisplay = ({
     dropDownListItems.push(<option value={stateString.slice(0, 2)} key={i}>{stateString.slice(5)}</option>)
   })
 
-  // dbInfo.forEach((charity) => { // pseudo
-  //     for (let k = 0; k < isTrueCategory.length; k += 1) {
-  //       if (charity[0].categoryName === isTrueCategory[k].name) {
-  //         charitiesToDisplay.push(charity);
-  //       }
-  //     }
-  // });
-
   return (
     <div>
       <select onChange={(e) => {
