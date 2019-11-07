@@ -15,9 +15,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/assets/index.html'));
-// });
+app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
+  const { username, isLoggedIn } = res.locals;
+  let data;
+  if (isLoggedIn) {
+    data = { isLoggedIn, username };
+  } else {
+    data = { isLoggedIn };
+  }
+  return res.status(200).json(data);
+});
+
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
+});
+
+app.use('/build', express.static(path.join(__dirname, 'build')));
+
 
 // app.use('/api', (req, res) => {
 //   console.log('route is working', req.body);
@@ -29,23 +43,23 @@ app.use(cookieParser());
 
 app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
   const { isLoggedIn, username } = res.locals;
-  res.status(200).json({ isLoggedIn, username });
+  return res.status(200).json({ isLoggedIn, username });
 });
 
 app.post('/login', authController.verifyUser, sessionController.setSSID, (req, res) => {
   const { isLoggedIn, username } = res.locals;
-  res.status(200).json({ isLoggedIn, username });
+  return res.status(200).json({ isLoggedIn, username });
 });
 
 app.get('/api/fetchData', charityController.fetchData, (req, res) => {
-  res.json('hi');
+  return res.json('hi');
 });
 
 /*
 Catch all routes that do not exist
 **/
 app.use('*', (req, res) => {
-  res.sendStatus(404);
+  return res.sendStatus(404);
 })
 
 
