@@ -1,7 +1,7 @@
 import React from 'react';
 import PieChart from 'react-minimal-pie-chart';
 const DataVis = ({ isCharity }) => {
-  const sum = isCharity.reduce((acc, val) => acc + Number(val.amount), 0)
+  const sum = isCharity ? isCharity.reduce((acc, val) => acc + Number(val.amount), 0) : 0;
   const obj = {};
   const pie = <PieChart className='pieChart'
     data={[
