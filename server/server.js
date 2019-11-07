@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const PORT = 3000;
 
@@ -15,6 +16,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
+});
 app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
   const { username, isLoggedIn } = res.locals;
   let data;
@@ -26,9 +30,10 @@ app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
   return res.status(200).json(data);
 });
 
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
-});
+app.delete('/logout', sessionController.deleteSSID, (req, res) => {
+  const { isLoggedIn } = res.locals;
+  return res.status(200).json({ isLoggedIn })
+})
 
 app.use('/build', express.static(path.join(__dirname, 'build')));
 
@@ -55,9 +60,11 @@ app.get('/api/fetchData', charityController.fetchData, (req, res) => {
   return res.json('hi');
 });
 
+
 /*
 Catch all routes that do not exist
 **/
+
 app.use('*', (req, res) => {
   return res.sendStatus(404);
 })

@@ -1,7 +1,9 @@
+
 import Login from './containers/Login.jsx';
 import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
 import Donations from './containers/Donations.jsx';
+import Header from './components/Header.jsx';
 import React, { useState, useEffect } from 'react';
 
 const App = () => {
@@ -10,7 +12,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
-  
+
   useEffect(() => {
     fetch('/checkCookie')
       .then(res => res.json())
@@ -33,22 +35,42 @@ const App = () => {
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
-  
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
+  
   const handleSignedUp = () => {
-    console.log('handle Signed Up');
     setSignedUp(!signedUp);
   };
-  
+
+  const handleLogOut = () => {
+    const userInfo = {
+      username,
+      password
+    }
+    fetch('/logout', {
+      method: 'DELETE',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+      .then(res => res.json())
+      .then(data => {
+        const { isLoggedIn } = data;
+        setUsername('');
+        setPassword('');
+        setIsLoggedIn(isLoggedIn);
+      })
+      .catch(err => console.error(err))
+  }
+
   const loginSignup = () => {
     const userInfo = {
       username,
       password
     }
-    
     console.log(userInfo);
     fetch(`/${userStatus}`, {
       method: 'POST',
@@ -67,24 +89,17 @@ const App = () => {
       .catch(err => console.error(err));
   }
 
-  return ( 
+  return (
     <div className="App">
       {!isLoggedIn && signedUp && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={loginSignup} handleSignedUp={handleSignedUp} />}
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
-        <div>
+        <div className="main-container">
+          <Header handleLogOut={handleLogOut}/>
           <Donations />
           <Search />
         </div>
       }
-
-  return (
-
-    <div>
-      <Login />
-      <Donations />
-    </div>
-
-  )
 }
+
 export default App;

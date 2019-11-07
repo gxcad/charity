@@ -12,11 +12,11 @@ const { handleUsername, handlePassword, signup, handleSignedUp } = props;
        </div>
        <div className="passwordInputs">
         <p> Password: </p>
-        <input onChange={(e) => handlePassword(e)} type="text"  />
+        <input onChange={(e) => handlePassword(e)} type="password"  />
        </div>
        <div className="signup-buttons">
-         <button className="login" onClick={handleSignedUp}>Log In</button>
-         <button className="sign-up" onClick={signup}>Submit</button>
+         <button className="login button" onClick={handleSignedUp}>Log In</button>
+         <button className="sign-up button" onClick={signup}>Submit</button>
        </div>
      </div>
    </div>
