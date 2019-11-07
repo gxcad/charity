@@ -39,7 +39,7 @@ const App = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  
+
   const handleSignedUp = () => {
     setSignedUp(!signedUp);
   };
@@ -65,7 +65,9 @@ const App = () => {
       })
       .catch(err => console.error(err))
   }
-
+  const postData = () => {
+    fetch('/')
+  }
   const loginSignup = () => {
     const userInfo = {
       username,
@@ -95,7 +97,7 @@ const App = () => {
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
         <div className="main-container">
-          <Header handleLogOut={handleLogOut}/>
+          <Header handleLogOut={handleLogOut} />
           <Donations />
           <Search />
         </div>
