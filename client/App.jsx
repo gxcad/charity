@@ -11,6 +11,9 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
+  const [tab, setTab] = useState(true);
+
+  
 
   useEffect(() => {
     fetch('/checkCookie')
@@ -89,19 +92,29 @@ const App = () => {
       .catch(err => console.error(err));
   }
 
+  const changeToSearch = () => {
+    console.log('search');
+    setTab(true);
+  }
+  const changeToDonation = () => {
+    console.log('donation');
+    setTab(false);
+  }
+
+
   return (
     <div className="App">
       {!isLoggedIn && signedUp && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={loginSignup} handleSignedUp={handleSignedUp} />}
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
         <div className="main-container">
-          <Header handleLogOut={handleLogOut} />
-          <Search />
-          <Donations />
+          <Header handleLogOut={handleLogOut}/>
+          {tab && <Search changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
+          {!tab && <Donations changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
         </div>
       }
     </div>
-  )
+   )
 }
 
 export default App;
