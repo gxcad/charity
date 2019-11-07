@@ -64,11 +64,12 @@
   justify-content: center;
   align-items: center;
   border: 1px red solid;
-  height: 60vh;
-  background-color: lightblue;
+  height: 100vh;
+  background-color: rgb(208, 237, 247);
 }
 
 .input-container {
+  background-color: aliceblue;
   border: 1px red solid;
   width: 30%;
   height: 30%;
