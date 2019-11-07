@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 const Donated = ({ name, amount }) => {
   return (
     <div className="historyElement">

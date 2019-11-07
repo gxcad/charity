@@ -3,6 +3,7 @@ import Charity from './Charity'
 import SearchArea from './SearchArea'
 // import dbInfo from 'path'; (placeholder)
 
+const Donated = ({name, amount}) => {
 const CharityDisplay = () => {
   const states = [ "AK - Alaska", 
   "AL - Alabama", 
@@ -82,7 +83,6 @@ const CharityDisplay = () => {
       </select>
       {charitiesToDisplay}
     </div>
-
   )
 }
-export default CharityDisplay;
+export default Donated;

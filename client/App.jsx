@@ -102,10 +102,6 @@ const App = () => {
           <Search />
         </div>
       }
-    </div>
-  );
-
-
 }
 
 export default App;
