@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 const Categories = ({
   name,
   mission,
@@ -21,6 +21,7 @@ const Categories = ({
       </React.Fragment>
     );
   })
+
   return (
     <div>
       <h1>{name}</h1>
