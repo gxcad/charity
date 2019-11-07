@@ -3,7 +3,10 @@ import Charity from './Charity' // is CharityDisplay supposed to render Charity?
 import SearchArea from './SearchArea'
 // import dbInfo from 'path'; (placeholder)
 
-const CharityDisplay = () => {
+const CharityDisplay = ({
+  setIsTwoLetterState,
+  setIsFundraisingOrg
+}) => {
   const states = ["AK - Alaska",
     "AL - Alabama",
     "AR - Arkansas",
@@ -61,7 +64,7 @@ const CharityDisplay = () => {
     "WY - Wyoming"];
 
   const dropDownListItems = [];
-  const charitiesToDisplay = [];
+  const statesToDisplay = [];
 
   states.forEach((stateString, i) => {
     dropDownListItems.push(<option value={stateString.slice(0, 2)} key={i}>{stateString.slice(5)}</option>)
@@ -77,10 +80,16 @@ const CharityDisplay = () => {
 
   return (
     <div>
-      <select>
+      <select onChange={(e) => {
+        setIsTwoLetterState(e.target.value)
+      }}>
         {dropDownListItems}
       </select>
-      {charitiesToDisplay}
+      {statesToDisplay}
+      <label>Fundraising Organization</label>
+      <input type='checkbox' onChange={(e) => {
+        setIsFundraisingOrg(e.target.checked)
+      }} />
     </div>
   )
 }

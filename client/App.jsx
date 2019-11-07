@@ -67,9 +67,6 @@ const App = () => {
       })
       .catch(err => console.error(err))
   }
-  const postData = () => {
-    fetch('/')
-  }
   const loginSignup = () => {
     const userInfo = {
       username,
@@ -91,6 +88,23 @@ const App = () => {
       })
       .catch(err => console.error(err));
   }
+  //fetching data using a post request, sending user input as body
+  const fetchData = (fundraisingOrgs, state, ids) => {
+    fetch('/api/fetchData', {
+      method: 'POST',
+      headers: { "Content-Type": 'application/json' },
+      body: JSON.stringify({
+        fundraisingOrgs, state, ids
+      })
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log('here inside of response from server', result)
+      })
+      .catch(err => {
+        console.log('something broke inside of .then chain inside of fetchData method')
+      })
+  }
 
   const changeToSearch = () => {
     console.log('search');
@@ -108,6 +122,7 @@ const App = () => {
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
         <div className="main-container">
+
           <Header handleLogOut={handleLogOut}/>
           {tab && <Search changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
           {!tab && <Donations changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
