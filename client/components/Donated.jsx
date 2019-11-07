@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-
-
-const Donated = ({/* INSERT PROPS HERE */ }) => {
+const Donated = ({ name, amount }) => {
   return (
-
-    <React.Fragment>
-      {/* <p> hello world</p> */}
-    </React.Fragment>
-
+    <div className="historyElement">
+      <p>Charity: {name} Donation: {amount} </p>
+      <button>share</button>
+    </div>
   )
 }
 export default Donated;
