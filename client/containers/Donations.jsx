@@ -8,7 +8,6 @@ const Donations = ({ }) => {
     <div>
 
       <DonatedList isCharity={isCharity} setIsCharity={setIsCharity} />
-
       <DataVis isCharity={isCharity} />
     </div>
   )

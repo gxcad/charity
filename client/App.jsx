@@ -98,8 +98,8 @@ const App = () => {
       {isLoggedIn && signedUp &&
         <div className="main-container">
           <Header handleLogOut={handleLogOut} />
-          <Donations />
           <Search />
+          <Donations />
         </div>
       }
     </div>
