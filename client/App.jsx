@@ -11,7 +11,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
-  const [tab, setTab] = useState(false);
+  const [tab, setTab] = useState(true);
   const [isCharity, setIsCharity] = useState([]);
   //for searching data
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
@@ -154,7 +154,7 @@ const App = () => {
   const changeToDonation = () => {
     setTab(false);
   }
-  
+
 
   return (
     <div className="App">
@@ -162,16 +162,15 @@ const App = () => {
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
         <div className="main-container">
-          <Header handleLogOut={handleLogOut}/>
-          {tab && <Search changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
-          {!tab && 
-          <Donations
-            username={username} 
-            changeToSearch={changeToSearch}
-            changeToDonation={changeToDonation}
-            isCharity={isCharity}
-            setIsCharity={setIsCharity}
-            /> }
+          <Header handleLogOut={handleLogOut} />
+          {!tab &&
+            <Donations
+              username={username}
+              changeToSearch={changeToSearch}
+              changeToDonation={changeToDonation}
+              isCharity={isCharity}
+              setIsCharity={setIsCharity}
+            />}
           {tab && <Search
             isCategory={isCategory}
             setIsCategory={setIsCategory}
