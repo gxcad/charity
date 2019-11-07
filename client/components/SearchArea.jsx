@@ -1,19 +1,7 @@
 import CharityDisplay from './CharityDisplay.jsx';
 import React, { useState } from 'react';
 
-const SearchArea = () => {
-  const [isCategory, setIsCategory] = useState([
-    { '0': false, name: 'Animals' },
-    { '1': false, name: 'Arts, Culture, Humanities' },
-    { '2': false, name: 'Community Development' },
-    { '3': false, name: 'Education' },
-    { '4': false, name: 'Environment' },
-    { '5': false, name: 'Health' },
-    { '6': false, name: 'Human and Civil Rights' },
-    { '7': false, name: 'Human Services' },
-    { '8': false, name: 'International' },
-    { '9': false, name: 'Research and Public Policy' }]
-  );
+const SearchArea = ({ isCategory, setIsCategory }) => {
   const updateCategory = (index) => {
     const temp = [];
     for (let i = 0; i < isCategory.length; i += 1) {
@@ -21,7 +9,7 @@ const SearchArea = () => {
         temp.push(isCategory[i]);
       } else {
         const isCategoryTemp = { ...isCategory[i] };
-        isCategoryTemp[i] = !isCategoryTemp[i][i];
+        isCategoryTemp[i] = !isCategoryTemp[i];
         temp.push(isCategoryTemp);
       }
     }
@@ -41,16 +29,14 @@ const SearchArea = () => {
     }
 
   });
-
   return (
-
     <div className='searchArea-container'>
       <div className="false-area">
         {falseButtons}
       </div>
-    <div className="true-area">
-      {trueButtons}
-    </div>
+      <div className="true-area">
+        {trueButtons}
+      </div>
 
     </div>
 
