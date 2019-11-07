@@ -20,7 +20,6 @@ const {handleUsername, handlePassword, login} = props;
        </div>
      </div>
    </div>
-
   )
 }
 export default Login;

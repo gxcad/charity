@@ -1,3 +1,4 @@
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -35,4 +36,32 @@
 .sign-up, .login {
   width: 70px;
   height: 40px;
+
+.categoryButton {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border: 1px solid lightslategray;
+  color: lightslategray;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.categoryButton:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+.categoryButtonSelected {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: lightslategray;
+  color: white;
 }
