@@ -5,7 +5,9 @@ import SearchArea from './SearchArea'
 
 const CharityDisplay = ({
   setIsTwoLetterState,
-  setIsFundraisingOrg
+  setIsFundraisingOrg,
+  fetchData,
+  setIsSearchNumber
 }) => {
   const states = ["AK - Alaska",
     "AL - Alabama",
@@ -90,6 +92,14 @@ const CharityDisplay = ({
       <input type='checkbox' onChange={(e) => {
         setIsFundraisingOrg(e.target.checked)
       }} />
+      <label>How many Searches?</label>
+      <input id='number-of-searches' onChange={(e) => {
+        console.log(e.target.value, typeof e.target.value)
+        setIsSearchNumber(e.target.value);
+      }}></input>
+      <button onClick={() => {
+        fetchData()
+      }}>Search For Charities</button>
     </div>
   )
 }
