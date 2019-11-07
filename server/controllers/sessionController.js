@@ -15,7 +15,7 @@ sessionController.setSSID = async (req, res, next) => {
   };
   try {
     await db.query(query);
-    res.cookie('ssid', ssid, { expires: new Date(Date.now() + 900000) }, { httpOnly: true });
+    res.cookie('ssid', ssid, { expires: new Date(Date.now() + 90000000) }, { httpOnly: true });
     res.locals.isLoggedIn = true;
     next();
   } catch (err) {
@@ -47,11 +47,21 @@ sessionController.verifySSID = (req, res, next) => {
       res.locals.isLoggedIn = false;
       return next();
     }
-    console.log(result.rows[0]);
     const { username } = result.rows[0];
     res.locals.username = username;
     res.locals.isLoggedIn = true;
-    return next();
+
+    pool.query('SELECT * FROM "Donations" WHERE username = $1', [username], (innerErr, innerResult) => {
+      if (innerErr || !innerResult) {
+        return next({
+          log: `sessionController.verifySSID: ERROR: ${innerErr}`,
+          message: { err: 'sessionController.verifySSID: ERROR: Check server logs for details' },
+        });
+      }
+      console.log('innerResult.rows is', innerResult.rows);
+      res.locals.allDonations = innerResult.rows;
+      return next();
+    });
   });
 };
 

@@ -12,7 +12,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
   const [tab, setTab] = useState(true);
-
+  const [isCharity, setIsCharity] = useState([]);
   //for searching data
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
   const [isFundraisingOrg, setIsFundraisingOrg] = useState(false);
@@ -34,12 +34,16 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
+    console.log('before fetch', username)
+    let tempLoggedInBoolean;
     fetch('/checkCookie')
       .then(res => res.json())
-      .then(data => {
-        const { isLoggedIn, username } = data;
+      .then((data) => {
+        const { isLoggedIn, username, allDonations } = data;
+        console.log(isLoggedIn, username, allDonations)
         setIsLoggedIn(isLoggedIn);
-        if (username) setUsername(username);
+        setUsername(username);
+        setIsCharity(allDonations);
       })
       .catch(err => console.log(err));
   }, []);
@@ -71,7 +75,7 @@ const App = () => {
     }
     fetch('/logout', {
       method: 'DELETE',
-      header: {
+      headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userInfo)
@@ -159,6 +163,14 @@ const App = () => {
       {isLoggedIn && signedUp &&
         <div className="main-container">
           <Header handleLogOut={handleLogOut} />
+          {!tab &&
+            <Donations
+              username={username}
+              changeToSearch={changeToSearch}
+              changeToDonation={changeToDonation}
+              isCharity={isCharity}
+              setIsCharity={setIsCharity}
+            />}
           {tab && <Search
             isCategory={isCategory}
             setIsCategory={setIsCategory}
@@ -172,7 +184,6 @@ const App = () => {
             isInterested={isInterested}
             setIsSearchNumber={setIsSearchNumber}
           />}
-          {!tab && <Donations changeToSearch={changeToSearch} changeToDonation={changeToDonation} />}
         </div>
       }
     </div>
