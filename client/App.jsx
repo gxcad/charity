@@ -1,14 +1,15 @@
 import Login from './containers/Login.jsx';
+import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
 import Donations from './containers/Donations.jsx';
 import React, { useState, useEffect } from 'react';
-// import { resolveMx } from 'dns';
 
 const App = () => {
-  const [status, setStatus] = useState(false);
+  const [userStatus, setUserStatus] = useState('login');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [signedUp, setSignedUp] = useState(true);
   
   useEffect(() => {
     fetch('/checkCookie')
@@ -21,20 +22,35 @@ const App = () => {
       .catch(err => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (signedUp) {
+      setUserStatus('login');
+    } else if (!signedUp) {
+      setUserStatus('signup');
+    }
+  }, [signedUp])
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-  }
+  };
+  
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-  }
+  };
 
-  const login = () => {
+  const handleSignedUp = () => {
+    console.log('handle Signed Up');
+    setSignedUp(!signedUp);
+  };
+  
+  const loginSignup = () => {
     const userInfo = {
       username,
       password
     }
+    
     console.log(userInfo);
-    fetch('/login', {
+    fetch(`/${userStatus}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,14 +62,16 @@ const App = () => {
         const { isLoggedIn, username } = data;
         setIsLoggedIn(isLoggedIn);
         if (username) setUsername(username);
+        if (userStatus === 'signup') setSignedUp(true);
       })
       .catch(err => console.error(err));
   }
 
   return ( 
     <div className="App">
-      {!isLoggedIn && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={login} />}
-      {isLoggedIn && 
+      {!isLoggedIn && signedUp && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={loginSignup} handleSignedUp={handleSignedUp} />}
+      {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
+      {isLoggedIn && signedUp &&
         <div>
           <Donations />
           <Search />
