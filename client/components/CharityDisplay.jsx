@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-const CharityDisplay = () => {
+
+const Donated = ({name, amount}) => {
 
   return (
-    <React.Fragment>
 
-    </React.Fragment>
+    <div>
+      <h1>Charity</h1>
+    </div>
 
   )
 }
-export default CharityDisplay;
+export default Donated;

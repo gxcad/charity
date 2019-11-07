@@ -6,11 +6,12 @@ import React, { useState } from 'react';
 const App = () => {
 
   return (
+
     <div>
       <Login />
-      <Search />
       <Donations />
     </div>
+
   )
 }
 export default App;
