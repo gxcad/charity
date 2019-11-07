@@ -1,7 +1,9 @@
 import Login from './containers/Login.jsx';
+import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
 import Donations from './containers/Donations.jsx';
-import React, { useState } from 'react';
+import Header from './components/Header.jsx';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
   const [isChoose, setIsChoose] = useState("login");
@@ -14,12 +16,12 @@ const App = () => {
   let sharing = 0;
 
   return (
-
-    <div>
+    <div className="App">
+     
       {sharedHold[isShared]}
       {displayedComponent}
+   
     </div>
-
   )
 }
 export default App;

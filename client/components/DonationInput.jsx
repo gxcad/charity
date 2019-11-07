@@ -6,31 +6,40 @@ const DonationInput = ({ isCharity, setIsCharity }) => {
 
   function submitting(e) {
     e.preventDefault()
-  
     const addArr = isCharity.slice();
-    const obj = {name: isCharityIn, donatedAmount: isAmountIn};
-          
-    addArr.push(obj);
-     
-    setIsCharityIn(''); 
-    setIsAmountIn('');
-    setIsCharity(addArr);
-  }
+    const obj = { name: isCharityIn, donatedAmount: isAmountIn };
+    
+    fetch("/", {
+      method: 'POST',
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(obj)
+      }
+    )
+    .then(res => res.json())
+    .then(
+      addArr.push(obj),
+      setIsCharityIn(''),
+      setIsAmountIn(''),
+      setIsCharity(addArr)
+    )
 
+    .catch(err => console.log(err))
+   
+  }
   return (
 
     <div>
       <br />
-        
-        <form onSubmit={submitting}>
-          <input name="charityInput" placeholder='charity name' value={isCharityIn} onChange={(e) => {setIsCharityIn(e.target.value)}}></input>
-          <input name="amountInput" placeholder='amount donated' value={isAmountIn} onChange={(e) => setIsAmountIn(e.target.value)}></input>
+      <form onSubmit={submitting}>
+        <input name="charityInput" placeholder='charity name' value={isCharityIn} onChange={(e) => { setIsCharityIn(e.target.value) }}></input>
+        <input name="amountInput" placeholder='amount donated' value={isAmountIn} onChange={(e) => setIsAmountIn(e.target.value)}></input>
 
-          <input type="submit" value="Submit"/>
-        </form>
-      
+        <input type="submit" value="Submit" />
+      </form>
+
     </div>
-
   )
 }
 export default DonationInput;

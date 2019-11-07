@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+/*App component */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header component */
+.header-container {
+  height: 8%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px rgb(121, 210, 240) solid;
+}
+
+.left-header {
+  align-items: center;
+  display: flex;
+  width: 30%;
+}
+
+.logo {
+  display: flex;
+  background-color: rgb(202, 230, 240);
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 80%;
+}
+
+.momentum {
+  letter-spacing: 1.5px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  font-family: 'Slabo 27px', serif;
+  font-size: 60px;
+}
+
+.logout {
+  background-color: rgb(253, 132, 132);
+  margin-right: 5px;
+  align-self: center;
+  width: 70px;
+  height: 40px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Login and Signup component */
+.login-container, .signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px red solid;
+  height: 100vh;
+  background-color: rgb(208, 237, 247);
+}
+
+.input-container {
+  background-color: aliceblue;
+  border: 1px red solid;
+  width: 30%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.usernameInputs, .passwordInputs {
+  border: 1px red solid;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-buttons, .signup-buttons {
+  justify-content: space-around;
+  width: 150px;
+  height: 50px;
+  display: flex;
+  border: 1px red solid;
+}
+
+.sign-up, .login {
+  width: 70px;
+  height: 40px;
+}
+
+/* Search Component */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: lightblue;
+}
+
+.searchArea-container{ 
+  display: flex;
+  flex-direction: column;
+  height: 15%;
+  background-color: rgb(245, 252, 189);
+}
+
+.false-area {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px black solid; 
+  height: 50%;
+}
+
+.true-area {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px black solid; 
+  height: 50%;
+}
+
+/* Tab Component */
+
+.tabs-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 5%;
+  border: 1px red solid;
+}
+.searchtab-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px black solid;
+  height: 100%;
+  width: 50%;
+}
+
+.historytab-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.search-tab, .history-tab {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  font-family: 'Slabo 27px', serif;
+}
+ /* Category Buttons */
+
+.categoryButton {
+  height: 50px;
+  width: 175px;
+  font-size: .7rem;
+  align-self: left;
+  margin: 10px 100px;
+  border: 1px solid lightslategray;
+  color: lightslategray;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.categoryButton:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+.categoryButtonSelected {
+  height: 60px;
+  width: 250px;
+  font-size: 15pt;
+  align-self: left;
+  margin: 10px 0px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: lightslategray;
+  color: white;
+}
+

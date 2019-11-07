@@ -40,7 +40,17 @@ score: 98.59,
 stars:
  'https://d20umu42aunjpx.cloudfront.net/_gfx_/icons/stars/4stars.png',
 categoryName: 'International',
-location: 'CA' } ] ]
+location: 'CA' } ],
+[ { name: 'Asha for Education',
+mission:
+ 'Mission: "To catalyze socio-economic change in India through education of underprivileged children."<br><br>Founded in 1991, Asha for Education is a secular organization dedicated to causing socio-economic change in India by focusing on access to basic education. Asha believes that education is a critical requisite for socio-economic change. As of 2015, there are over 50 Asha chapters worldwide including US, Canada, Europe and India. The organization has more than 1,000 active volunteers and several thousand supporters around the world. Till date, Asha has supported more than 400 different projects spanning more than 24 states in India. Since its inception and till 2014, Asha for Education has disbursed around $32 million dollars which benefited thousands of disadvantaged children and youth. ',
+url: 'http://www.ashanet.org',
+tagLine: 'Bringing hope through education',
+score: 98.59,
+stars:
+ 'https://d20umu42aunjpx.cloudfront.net/_gfx_/icons/stars/4stars.png',
+categoryName: 'food',
+location: 'CA' } ]]
 
 
 function sortForPie(arr, sortBy, accType = undefined){
@@ -64,13 +74,13 @@ function sortForPie(arr, sortBy, accType = undefined){
         obj[inArr[0][sortBy]] = 1;
       }
     }
-    console.log(obj) 
+    console.log("fire?", obj) 
   })
 
   for(let key in obj){
     output.push({ title: key, value: obj[key], color: colorArr[incColor]})
     incColor++;
-    if(incColor > colorArr.length -1) incColor = 0;
+    if(incColor > colorArr.length - 1) incColor = 0;
   }
   
   return output;
@@ -87,8 +97,6 @@ const DataVis = ({ isCharity }) => {
     sortForPie(dummyData, "categoryName")
   }
 />;
-  
- 
 
   isCharity.forEach(obj => {
     total += Number(obj.donatedAmount);
@@ -100,8 +108,23 @@ const DataVis = ({ isCharity }) => {
       <h1>Data Visual</h1>
       <p>Total {total}</p>
       {pie}
+      <ul>
+        
+      </ul>
     </div>
       
     )
   }
   export default DataVis;
+
+  const pieKey = () => {
+  
+    return (
+    
+      <div>
+        <button color={}></button>
+        <p></p>
+      </div>
+        
+      )
+    }
