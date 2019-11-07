@@ -11,9 +11,9 @@ const DataVis = ({ isCharity }) => {
     ]}
   />;
   console.log(obj)
-  isCharity.forEach(obj => {
-    total += Number(obj.donatedAmount);
-  })
+  // isCharity.forEach(obj => {
+  //   total += Number(obj.donatedAmount);
+  // })
   return (
     <div>
       <h1>Data Visual</h1>

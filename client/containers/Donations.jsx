@@ -7,9 +7,7 @@ const Donations = ({ }) => {
   { name: 'thirdTest', donatedAmount: '1' }]);
   return (
     <div>
-
       <DonatedList isCharity={isCharity} setIsCharity={setIsCharity} />
-
       <DataVis isCharity={isCharity} />
     </div>
   )
