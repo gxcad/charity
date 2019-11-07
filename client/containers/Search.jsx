@@ -3,10 +3,10 @@ import SearchArea from '../components/SearchArea.jsx';
 import CharityDisplay from '../components/CharityDisplay';
 import Tabs from '../components/Tabs';
 
-const Search = () => {
+const Search = ({changeToSearch, changeToDonation}) => {
   return (
     <div className="search-container">
-      <Tabs />
+      <Tabs changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>
       <SearchArea />
       <CharityDisplay />
     </div>
