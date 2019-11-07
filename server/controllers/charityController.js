@@ -7,8 +7,9 @@ charityController.fetchData = (req, res, next) => {
   const preferences = {
     fundraisingOrgs: true,
     state: null,
-    ids: [1, 2, 5, 6]
+    ids: [1, 2, 5, 7]
   }
+
   const fundraisingOrgs = preferences.fundraisingOrgs || false;
   const state = preferences.state || 'CA';
   const { ids } = preferences;
@@ -57,5 +58,3 @@ module.exports = charityController;
 //   'Human and Civil Rights',
 //   'International',
 //   'Research and Public Policy'];
-
-

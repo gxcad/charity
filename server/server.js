@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const PORT = 3000;
 
@@ -55,9 +56,11 @@ app.get('/api/fetchData', charityController.fetchData, (req, res) => {
   return res.json('hi');
 });
 
+
 /*
 Catch all routes that do not exist
 **/
+
 app.use('*', (req, res) => {
   return res.sendStatus(404);
 })

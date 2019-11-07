@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4');
-const db = require('../database.js');
-const { pool } = require('../database.js');
+const db = require('../databases/psql');
+const { pool } = require('../databases/psql');
 
 const sessionController = {};
 
@@ -31,7 +31,7 @@ sessionController.setSSID = async (req, res, next) => {
 sessionController.verifySSID = (req, res, next) => {
   console.log('verifySSID');
   const { ssid } = req.cookies;
-  
+
   if (!ssid) {
     res.locals.isLoggedIn = false;
     return next();
