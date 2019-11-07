@@ -12,6 +12,7 @@ const charityController = require('./controllers/charityController');
 const sessionController = require('./controllers/sessionController');
 const authController = require('./controllers/authController');
 const donationController = require('./controllers/donationController');
+const redisController = require('./controllers/redisController');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,8 +63,8 @@ app.post('/login', authController.verifyUser, sessionController.setSSID, (req, r
   return res.status(200).json({ isLoggedIn, username });
 });
 
-app.get('/api/fetchData', charityController.fetchData, (req, res) => {
-  return res.json('hi');
+app.post('/api/fetchData', charityController.fetchData, redisController.setData, (req, res) => {
+  return res.json(res.locals.data);
 });
 
 app.post('/donation', donationController.postDonation, (req, res) => {

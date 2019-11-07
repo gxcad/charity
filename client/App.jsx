@@ -13,6 +13,25 @@ const App = () => {
   const [signedUp, setSignedUp] = useState(true);
   const [tab, setTab] = useState(false);
   const [isCharity, setIsCharity] = useState([]);
+  //for searching data
+  const [isTwoLetterState, setIsTwoLetterState] = useState('');
+  const [isFundraisingOrg, setIsFundraisingOrg] = useState(false);
+  const [isCategory, setIsCategory] = useState([
+    { '0': false, name: 'Animals' },
+    { '1': false, name: 'Arts, Culture, Humanities' },
+    { '2': false, name: 'Education' },
+    { '3': false, name: 'Environment' },
+    { '4': false, name: 'Health' },
+    { '5': false, name: 'Human Services' },
+    { '6': false, name: 'International' },
+    { '7': false, name: 'Human and Civil Rights' },
+    { '8': false, name: 'Religion' },
+    { '9': false, name: 'Community Development' },
+    { '10': false, name: 'Research and Public Policy' }
+  ]);
+  const [isFetchedCategoryData, setIsFetchedCategoryData] = useState([]);
+  const [isInterested, setIsInterested] = useState([]);
+  const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
     console.log('before fetch', username)
@@ -28,24 +47,6 @@ const App = () => {
       })
       .catch(err => console.log(err));
   }, []);
-
-
-        // fetch('/getdonations', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({username}),
-        // })
-        // .then(res => res.json())
-        // .then(data => {
-        //   const { allDonations } = data;
-        //   if (username) setUsername(username);
-        //   setIsLoggedIn(tempLoggedInBoolean);
-        //   // console.log('donations data is', data)
-        //   if (!data) return;
-        // })
-        // .catch(err => console.log(err))
 
   useEffect(() => {
     if (signedUp) {
@@ -110,17 +111,37 @@ const App = () => {
       .catch(err => console.error(err));
   }
   //fetching data using a post request, sending user input as body
-  const fetchData = (fundraisingOrgs, state, ids) => {
+  const fetchData = () => {
+    const fundraisingOrgs = isFundraisingOrg;
+    const state = isTwoLetterState;
+    const ids = [];
+    const trueIndices = isCategory.map((objects, index) => {
+      if (objects[index]) {
+        return index + 1;
+      };
+    }).filter(elements => elements !== undefined);
     fetch('/api/fetchData', {
       method: 'POST',
       headers: { "Content-Type": 'application/json' },
       body: JSON.stringify({
-        fundraisingOrgs, state, ids
+        preferences: {
+          fundraisingOrgs,
+          state,
+          ids: trueIndices,
+          searchNumber: isSearchNumber
+        }
       })
     })
       .then(res => res.json())
       .then(result => {
-        console.log('here inside of response from server', result)
+        //setting category data to be passed to category container
+        const data = [];
+        result.forEach(array => {
+          array.forEach(object => {
+            data.push(object);
+          })
+        })
+        setIsFetchedCategoryData(data)
       })
       .catch(err => {
         console.log('something broke inside of .then chain inside of fetchData method')
@@ -128,11 +149,9 @@ const App = () => {
   }
 
   const changeToSearch = () => {
-    console.log('search');
     setTab(true);
   }
   const changeToDonation = () => {
-    console.log('donation');
     setTab(false);
   }
   
@@ -143,7 +162,6 @@ const App = () => {
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
         <div className="main-container">
-
           <Header handleLogOut={handleLogOut}/>
           {tab && <Search changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
           {!tab && 
@@ -154,10 +172,23 @@ const App = () => {
             isCharity={isCharity}
             setIsCharity={setIsCharity}
             /> }
+          {tab && <Search
+            isCategory={isCategory}
+            setIsCategory={setIsCategory}
+            changeToSearch={changeToSearch}
+            changeToDonation={changeToDonation}
+            fetchData={fetchData}
+            setIsTwoLetterState={setIsTwoLetterState}
+            setIsFundraisingOrg={setIsFundraisingOrg}
+            isFetchedCategoryData={isFetchedCategoryData}
+            setIsInterested={setIsInterested}
+            isInterested={isInterested}
+            setIsSearchNumber={setIsSearchNumber}
+          />}
         </div>
       }
     </div>
-   )
+  )
 }
 
 export default App;
