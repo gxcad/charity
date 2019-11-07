@@ -3,6 +3,7 @@ import Login from './containers/Login.jsx';
 import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
 import Donations from './containers/Donations.jsx';
+import Header from './components/Header.jsx';
 import React, { useState, useEffect } from 'react';
 
 const App = () => {
@@ -38,18 +39,38 @@ const App = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
+  
   const handleSignedUp = () => {
-    console.log('handle Signed Up');
     setSignedUp(!signedUp);
   };
+
+  const handleLogOut = () => {
+    const userInfo = {
+      username,
+      password
+    }
+    fetch('/logout', {
+      method: 'DELETE',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+      .then(res => res.json())
+      .then(data => {
+        const { isLoggedIn } = data;
+        setUsername('');
+        setPassword('');
+        setIsLoggedIn(isLoggedIn);
+      })
+      .catch(err => console.error(err))
+  }
 
   const loginSignup = () => {
     const userInfo = {
       username,
       password
     }
-
     console.log(userInfo);
     fetch(`/${userStatus}`, {
       method: 'POST',
@@ -73,12 +94,12 @@ const App = () => {
       {!isLoggedIn && signedUp && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={loginSignup} handleSignedUp={handleSignedUp} />}
       {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
       {isLoggedIn && signedUp &&
-        <div>
+        <div className="main-container">
+          <Header handleLogOut={handleLogOut}/>
           <Donations />
           <Search />
         </div>
       }
-
     </div>
   );
 
