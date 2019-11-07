@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 
 const Donations = ({/* INSERT PROPS HERE */ }) => {
   return (
-    <React.Fragment>
+    <div className="donations-container">
       <DonationInput />
 
-    </React.Fragment>
+    </div>
 
   )
 }
