@@ -12,6 +12,7 @@ module.exports = {
     contentBase: path.join(__dirname, "./client/assets"),
     publicPath: "http://localhost:8080/build",
     proxy: {
+      '/': 'http://localhost:3000',
       '/api': 'http://localhost:3000'
     }
   },
