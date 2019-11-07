@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import Tab from './Tab';
+
 
 const Tabs = () => {
 
   return (
-    <div>
-      <Tab value='Search results:'/>
-      <Tab value='History'/>
+    <div className="tabs-container">
+      <div className="searchtab-container">
+        <p className="search-tab">Search</p>
+      </div>
+      <div className="historytab-container">
+        <p className="history-tab">History</p>
+      </div>
     </div>
 
   )

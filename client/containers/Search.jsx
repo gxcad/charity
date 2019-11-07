@@ -6,10 +6,8 @@ import Tabs from '../components/Tabs';
 const Search = () => {
   return (
     <div className="search-container">
-      <SearchArea />
-      <hr />
       <Tabs />
-      <hr />
+      <SearchArea />
       <CharityDisplay />
     </div>
   )
