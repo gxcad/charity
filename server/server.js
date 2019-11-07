@@ -7,12 +7,38 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const charityController = require('./controllers/charityController')
+const charityController = require('./controllers/charityController');
+const sessionController = require('./controllers/sessionController');
+const authController = require('./controllers/authController');
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/assets/index.html'));
+// });
+
+// app.use('/api', (req, res) => {
+//   console.log('route is working', req.body);
+//   res.status(200).json({ message: 'hi' });
+// });
+
+
+// sessionController.verifySSID,
+
+app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
+  const { isLoggedIn, username } = res.locals;
+  res.status(200).json({ isLoggedIn, username });
+});
+
+app.post('/login', authController.verifyUser, sessionController.setSSID, (req, res) => {
+  const { isLoggedIn, username } = res.locals;
+  res.status(200).json({ isLoggedIn, username });
+});
+
 app.get('/api/fetchData', charityController.fetchData, (req, res) => {
-  res.json("hi");
+  res.json('hi');
 });
 
 /*

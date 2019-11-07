@@ -1,6 +1,7 @@
 
 const charityController = {};
 const fetch = require('node-fetch');
+
 charityController.fetchData = (req, res, next) => {
   // const { preferences } = req.body;
   const preferences = {
