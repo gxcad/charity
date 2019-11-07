@@ -17,18 +17,20 @@ const SearchArea = ({ isCategory, setIsCategory }) => {
   }
   const falseButtons = [];
   const trueButtons = [];
-  isCategory.forEach((category, index) => {
-    const button = (<button type='submit' key={'button' + index} id={'button' + index} className='categoryButton' onClick={() => {
-      const newState = updateCategory(index);
-      setIsCategory(newState);
-    }}>{category.name}</button>)
-    if (category[index]) {
-      trueButtons.push(button);
-    } else {
-      falseButtons.push(button);
-    }
+  if (isCategory) {
+    isCategory.forEach((category, index) => {
+      const button = (<button type='submit' key={'button' + index} id={'button' + index} className='categoryButton' onClick={() => {
+        const newState = updateCategory(index);
+        setIsCategory(newState);
+      }}>{category.name}</button>)
+      if (category[index]) {
+        trueButtons.push(button);
+      } else {
+        falseButtons.push(button);
+      }
 
-  });
+    });
+  }
   return (
     <div className='searchArea-container'>
       <div className="false-area">
