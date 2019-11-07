@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Donated from '../components/Donated.jsx';
-import DonationInput from '../components/DonationInput.jsx';
+import Donated from './Donated.jsx';
+import DonationInput from './DonationInput.jsx';
 const DonatedList = ({ isCharity, setIsCharity }) => {
   const donArr = [];
   isCharity.forEach((obj, i) => {
@@ -8,12 +8,8 @@ const DonatedList = ({ isCharity, setIsCharity }) => {
   })
   return (
     <div>
-      <div>
-        {donArr}
-      </div>
-      <div>
-        <DonationInput isCharity={isCharity} setIsCharity={setIsCharity} />
-      </div>
+      {donArr}
+      <DonationInput isCharity={isCharity} setIsCharity={setIsCharity} />
     </div>
   )
 }

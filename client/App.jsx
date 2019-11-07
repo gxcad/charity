@@ -1,4 +1,3 @@
-
 import Login from './containers/Login.jsx';
 import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
@@ -73,7 +72,6 @@ const App = () => {
       username,
       password
     }
-    console.log(userInfo);
     fetch(`/${userStatus}`, {
       method: 'POST',
       headers: {
@@ -102,6 +100,8 @@ const App = () => {
           <Donations />
         </div>
       }
+    </div>
+  )
 }
 
 export default App;
