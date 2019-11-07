@@ -43,25 +43,52 @@ categoryName: 'International',
 location: 'CA' } ] ]
 
 
-function sortForPie(arr){
+function sortForPie(arr, sortBy, accType = undefined){
+  const colorArr = ['#b5e37e', '#7db9ec', '#b784f2', '#f28ec4', '#eeaf7a', '#f66555', '#ffc66f', '#f8f9d4', '#3cccd0', '#008cd0']
+  const obj = {};
+  const output = [];
+  let incColor = 0;
+
+  arr.forEach(inArr => {
+    if(accType){
+      if(obj[inArr[0].sortBy]){
+        obj[inArr[0].sortBy] += inArr[0].accType;
+      }else{
+        obj[inArr[0].sortBy] = inArr[0].accType;
+      }
+    }else{
+      console.log("here")
+      if(obj[inArr[0][sortBy]]){
+        obj[inArr[0][sortBy]] += 1;
+      }else{
+        obj[inArr[0][sortBy]] = 1;
+      }
+    }
+    console.log(obj) 
+  })
+
+  for(let key in obj){
+    output.push({ title: key, value: obj[key], color: colorArr[incColor]})
+    incColor++;
+    if(incColor > colorArr.length -1) incColor = 0;
+  }
   
-
+  return output;
 }
-
-
 
 const DataVis = ({ isCharity }) => {
   let total = 0;
   const obj = {};
 
+  
+
   const pie = <PieChart className='pieChart'
-  data={[
-    { title: 'One', value: 10, color: '#E38627' },
-    { title: 'Two', value: 15, color: '#C13C37' },
-    { title: 'Three', value: 20, color: '#6A2135' },
-  ]}
+  data={
+    sortForPie(dummyData, "categoryName")
+  }
 />;
-  console.log(obj)
+  
+ 
 
   isCharity.forEach(obj => {
     total += Number(obj.donatedAmount);
