@@ -11,20 +11,41 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
-  const [tab, setTab] = useState(true);
-
-  
+  const [tab, setTab] = useState(false);
+  const [isCharity, setIsCharity] = useState([]);
 
   useEffect(() => {
+    console.log('before fetch', username)
+    let tempLoggedInBoolean;
     fetch('/checkCookie')
       .then(res => res.json())
-      .then(data => {
-        const { isLoggedIn, username } = data;
+      .then((data) => {
+        const { isLoggedIn, username, allDonations } = data;
+        console.log(isLoggedIn, username, allDonations)
         setIsLoggedIn(isLoggedIn);
-        if (username) setUsername(username);
+        setUsername(username);
+        setIsCharity(allDonations);
       })
       .catch(err => console.log(err));
   }, []);
+
+
+        // fetch('/getdonations', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({username}),
+        // })
+        // .then(res => res.json())
+        // .then(data => {
+        //   const { allDonations } = data;
+        //   if (username) setUsername(username);
+        //   setIsLoggedIn(tempLoggedInBoolean);
+        //   // console.log('donations data is', data)
+        //   if (!data) return;
+        // })
+        // .catch(err => console.log(err))
 
   useEffect(() => {
     if (signedUp) {
@@ -53,7 +74,7 @@ const App = () => {
     }
     fetch('/logout', {
       method: 'DELETE',
-      header: {
+      headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userInfo)
@@ -114,7 +135,7 @@ const App = () => {
     console.log('donation');
     setTab(false);
   }
-
+  
 
   return (
     <div className="App">
@@ -125,7 +146,14 @@ const App = () => {
 
           <Header handleLogOut={handleLogOut}/>
           {tab && <Search changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
-          {!tab && <Donations changeToSearch={changeToSearch} changeToDonation={changeToDonation}/>}
+          {!tab && 
+          <Donations
+            username={username} 
+            changeToSearch={changeToSearch}
+            changeToDonation={changeToDonation}
+            isCharity={isCharity}
+            setIsCharity={setIsCharity}
+            /> }
         </div>
       }
     </div>
