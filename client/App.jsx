@@ -1,4 +1,3 @@
-
 import Login from './containers/Login.jsx';
 import Signup from './components/Signup.jsx'
 import Search from './containers/Search.jsx';
@@ -42,7 +41,7 @@ const App = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  
+
   const handleSignedUp = () => {
     setSignedUp(!signedUp);
   };
@@ -68,13 +67,14 @@ const App = () => {
       })
       .catch(err => console.error(err))
   }
-
+  const postData = () => {
+    fetch('/')
+  }
   const loginSignup = () => {
     const userInfo = {
       username,
       password
     }
-    console.log(userInfo);
     fetch(`/${userStatus}`, {
       method: 'POST',
       headers: {
