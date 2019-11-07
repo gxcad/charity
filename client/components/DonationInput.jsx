@@ -4,19 +4,16 @@ const DonationInput = ({ isCharity, setIsCharity }) => {
   const [isCharityIn, setIsCharityIn] = useState('');
   const [isAmountIn, setIsAmountIn] = useState('')
 
+
   function submitting(e) {
     e.preventDefault()
-  
     const addArr = isCharity.slice();
-    const obj = {name: isCharityIn, donatedAmount: isAmountIn};
-          
+    const obj = { name: isCharityIn, donatedAmount: isAmountIn };
     addArr.push(obj);
-     
-    setIsCharityIn(''); 
+    setIsCharityIn('');
     setIsAmountIn('');
     setIsCharity(addArr);
   }
-
   return (
 
     <div>
@@ -30,7 +27,6 @@ const DonationInput = ({ isCharity, setIsCharity }) => {
         </form>
       
     </div>
-
   )
 }
 export default DonationInput;
