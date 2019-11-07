@@ -130,9 +130,9 @@
 .categoryButton {
   height: 50px;
   width: 175px;
-  font-size: .5rem;
+  font-size: .7rem;
   align-self: left;
-  margin: 10px 0px;
+  margin: 10px 100px;
   border: 1px solid lightslategray;
   color: lightslategray;
   border-radius: 5px;
