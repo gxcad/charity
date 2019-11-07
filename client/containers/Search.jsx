@@ -5,7 +5,7 @@ import Tabs from '../components/Tabs';
 
 const Search = () => {
   return (
-    <div>
+    <div className="search-container">
       <SearchArea />
       <hr />
       <Tabs />

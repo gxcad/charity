@@ -7,14 +7,10 @@ const Donations = ({}) => {
   {name: 'thirdTest', donatedAmount:'1'}]);
 
   return (
-
-    <div>
-      <div>
-        <DonatedContainer isCharity={isCharity} setIsCharity={setIsCharity} />
-      </div>
-      <div>
-        <DataVis isCharity={isCharity} />
-      </div>    
+    <div className="donations-container">
+      <DonationInput />
+      <DonatedContainer isCharity={isCharity} setIsCharity={setIsCharity} />
+      <DataVis isCharity={isCharity} />
     </div>
 
   )

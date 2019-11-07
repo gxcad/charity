@@ -45,10 +45,13 @@ const SearchArea = () => {
   });
 
   return (
-    <div id='renderArea'>
-      {falseButtons}
-    <hr></hr>
-    {trueButtons}
+    <div className='searchArea-container'>
+      <div className="false-area">
+        {falseButtons}
+      </div>
+    <div className="true-area">
+      {trueButtons}
+    </div>
     </div>
 
   )
