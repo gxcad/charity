@@ -14,7 +14,7 @@ charityController.fetchData = (req, res, next) => {
       fetch(`https://api.data.charitynavigator.org/v2/Organizations?app_id=${process.env.CHARITY_ID}&app_key=${process.env.CHARITY_KEY}&rated=true&fundraisingOrgs=${fundraisingOrgs}&sort=RATING:DESC&pageSize=${searchNumber}&categoryID=${id}&state=${state}`)
         .then(res => res.json())
         .then(data => {
-          console.log(data)
+          // console.log(data)
           const result = data.map(object => {
             return {
               name: object.charityName,

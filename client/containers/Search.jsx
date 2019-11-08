@@ -15,7 +15,8 @@ const Search = ({
   isFetchedCategoryData,
   setIsInterested,
   isInterested,
-  setIsSearchNumber
+  setIsSearchNumber,
+  sendInterests
 }) => {
   let arrayOfCategories
   if (isFetchedCategoryData && isFetchedCategoryData.length > 0) {
@@ -57,11 +58,15 @@ const Search = ({
       {arrayOfCategories}
       <Interests
         isInterested={isInterested}
-        setIsInterested={setIsInterested} />
+        setIsInterested={setIsInterested}
+        sendInterests={sendInterests}
+      />
+
     </div>
   )
 }
-const Interests = ({ isInterested, setIsInterested }) => {
+
+const Interests = ({ isInterested, setIsInterested, sendInterests }) => {
   let interestedChildren;
   if (isInterested && isInterested.length > 0) {
     interestedChildren = isInterested.map((obj) => {
@@ -78,6 +83,10 @@ const Interests = ({ isInterested, setIsInterested }) => {
 
   return (
     <div>
+      <button onClick={() => {
+        // console.log('here inside of onclick for interests', isInterested)
+        sendInterests(isInterested)
+      }}>Save!</button>
       {interestedChildren ? interestedChildren : false}
     </div>
   )
@@ -89,7 +98,7 @@ const InterestChild = ({
   stars,
   url,
   setIsInterested,
-  isInterested
+  isInterested,
 }) => {
   return (
     <div>

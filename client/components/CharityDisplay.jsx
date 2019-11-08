@@ -86,7 +86,6 @@ const CharityDisplay = ({
       }} />
       <label>How many Searches?</label>
       <input id='number-of-searches' onChange={(e) => {
-        console.log(e.target.value, typeof e.target.value)
         setIsSearchNumber(e.target.value);
       }}></input>
       <button onClick={() => {

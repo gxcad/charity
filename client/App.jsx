@@ -34,16 +34,14 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
-    console.log('before fetch', username)
-    let tempLoggedInBoolean;
     fetch('/checkCookie')
       .then(res => res.json())
       .then((data) => {
-        const { isLoggedIn, username, allDonations } = data;
-        console.log(isLoggedIn, username, allDonations)
+        const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
         setUsername(username);
         setIsCharity(allDonations);
+        setIsInterested(reply)
       })
       .catch(err => console.log(err));
   }, []);
@@ -114,7 +112,6 @@ const App = () => {
   const fetchData = () => {
     const fundraisingOrgs = isFundraisingOrg;
     const state = isTwoLetterState;
-    const ids = [];
     const trueIndices = isCategory.map((objects, index) => {
       if (objects[index]) {
         return index + 1;
@@ -147,14 +144,26 @@ const App = () => {
         console.log('something broke inside of .then chain inside of fetchData method')
       })
   }
-
+  const sendInterests = (interests) => {
+    fetch('/interests', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ username, interests })
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log('result inside send interests', result)
+      })
+      .catch(err => {
+        console.log('something broke inside of .then chain inside of sendInterests method')
+      })
+  }
   const changeToSearch = () => {
     setTab(true);
   }
   const changeToDonation = () => {
     setTab(false);
   }
-
 
   return (
     <div className="App">
@@ -183,11 +192,11 @@ const App = () => {
             setIsInterested={setIsInterested}
             isInterested={isInterested}
             setIsSearchNumber={setIsSearchNumber}
+            sendInterests={sendInterests}
           />}
         </div>
       }
     </div>
   )
 }
-
 export default App;
