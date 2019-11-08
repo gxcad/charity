@@ -187,12 +187,38 @@
   color: white;
 }
 
-.charityDisplay {
-  background-color: rgb(202, 230, 240);
+.textWithinElement {
+  font-size: 15pt;
+  padding: 5px 15px;
+  font-weight: bold;
 }
 
-.eachDonation {
-  background-color: lightblue;
+.shareButton {
+  height: 30px;
+  width: 80px;
+  font-size: .7rem;
+  align-self: left;
+  margin: 10px 100px;
+  border: 1px solid lightslategray;
+  color: darkslategrey;
+  border-radius: 5px;
+  margin: 5px 15px 10px 15px;
+}
+  
+  .categoryButton:hover {
+    background-color: lightslategray;
+    color: white;
+  }
+
+.historyElement {
+  margin: 5px;
+  border: 2px solid darkslateblue;
+  border-radius: 5px;
+  background-color: rgb(245, 252, 189);
+}
+
+.charityDisplay {
+  background-color: rgb(202, 230, 240);
 }
 
 #pie-container {
@@ -208,4 +234,8 @@
 #donatedListArea {
   background-color: rgb(245, 252, 189);
 
+}
+
+#donationInput {
+  background-color: lightblue;
 }
