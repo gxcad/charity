@@ -153,6 +153,8 @@ const App = () => {
     setTab(false);
   }
 
+  const sharedHold = [<React.Fragment />, <sharedCompLog />]
+  let sharing = 0;
 
   return (
     <div className="App">
@@ -187,5 +189,19 @@ const App = () => {
     </div>
   )
 }
-
 export default App;
+
+function sharedCompLog  ({}){
+
+  return (
+
+    <React.Fragment>
+      <p> i'm inside the login component </p>
+      <button onClick={ () => {
+        setChooseComp("donations"); 
+      }
+      }>finished</button>
+    </React.Fragment>
+
+  )
+}
