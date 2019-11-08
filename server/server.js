@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
 });
-app.get('/checkCookie', sessionController.verifySSID, redisController.getData, (req, res) => {
+app.post('/checkCookie', sessionController.verifySSID, redisController.getData, (req, res) => {
   const { username, isLoggedIn, allDonations, reply } = res.locals;
   let data;
   if (isLoggedIn) {
@@ -37,16 +37,16 @@ app.delete('/logout', sessionController.deleteSSID, (req, res) => {
   return res.status(200).json({ isLoggedIn })
 })
 app.post('/interests', redisController.setData, (req, res) => {
-  return res.json('hi')
+  return res.json(true)
 })
 app.use('/build', express.static(path.join(__dirname, 'build')));
 
-app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
+app.post('/signup', authController.createUser, (req, res) => {
   const { isLoggedIn, username } = res.locals;
   return res.status(200).json({ isLoggedIn, username });
 });
 
-app.post('/login', authController.verifyUser, sessionController.setSSID, (req, res) => {
+app.post('/login', authController.verifyUser, sessionController.setSSID, redisController.getData, (req, res) => {
   const { isLoggedIn, username } = res.locals;
   return res.status(200).json({ isLoggedIn, username });
 });
