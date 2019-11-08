@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 
 const DonationInput = ({ username, isCharity, setIsCharity }) => {
-  
+
   const [isCharityIn, setIsCharityIn] = useState('');
   const [isAmountIn, setIsAmountIn] = useState('')
 
   function submitting(e) {
     e.preventDefault()
-    console.log('submitting donation');
+    // console.log('submitting donation');
     const charityList = isCharity.slice();
 
-    const donation = { 
+    const donation = {
       username: username,
-      charityName: isCharityIn, 
-      amount: isAmountIn 
+      charityName: isCharityIn,
+      amount: isAmountIn
     };
 
     fetch(`/donation`, {
@@ -26,18 +26,18 @@ const DonationInput = ({ username, isCharity, setIsCharity }) => {
       .then(res => res.json())
       .then(data => {
         const { success } = data;
-        console.log(data)
+        // console.log(data)
         if (success) {
-          console.log('success. updating state');
+          // console.log('success. updating state');
           setIsCharityIn('');
           setIsAmountIn('');
           charityList.push(donation)
-          console.log(charityList)
+          // console.log(charityList)
           setIsCharity(charityList);
         }
       })
   }
-     
+
   return (
     <div>
       <br />

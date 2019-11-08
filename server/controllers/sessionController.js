@@ -5,7 +5,7 @@ const { pool } = require('../databases/psql');
 const sessionController = {};
 
 sessionController.setSSID = async (req, res, next) => {
-  console.log('setSSID');
+  // console.log('setSSID');
 
   const { username } = res.locals;
   const ssid = uuid();
@@ -29,7 +29,7 @@ sessionController.setSSID = async (req, res, next) => {
 
 
 sessionController.verifySSID = (req, res, next) => {
-  console.log('verifySSID');
+  // console.log('verifySSID');
   const { ssid } = req.cookies;
 
   if (!ssid) {
@@ -58,7 +58,7 @@ sessionController.verifySSID = (req, res, next) => {
           message: { err: 'sessionController.verifySSID: ERROR: Check server logs for details' },
         });
       }
-      console.log('innerResult.rows is', innerResult.rows);
+      // console.log('innerResult.rows is', innerResult.rows);
       res.locals.allDonations = innerResult.rows;
       return next();
     });
@@ -89,9 +89,9 @@ sessionController.verifySSID = (req, res, next) => {
 // }
 
 sessionController.deleteSSID = async (req, res, next) => {
-  console.log('deleteSSID');
+  // console.log('deleteSSID');
   const { ssid } = req.cookies;
-  console.log('im a cookie: ', ssid)
+  // console.log('im a cookie: ', ssid)
   if (!ssid) {
     return next({
       log: 'deleteSSID: invalid input',

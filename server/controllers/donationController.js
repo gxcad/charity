@@ -2,7 +2,7 @@ const { pool } = require('../databases/psql');
 const donationController = {};
 
 donationController.postDonation = (req, res, next) => {
-  console.log('postDonation');
+  // console.log('postDonation');
   const { username, amount, charityName } = req.body;
   pool.query('INSERT INTO "Donations" (username, amount, "charityName", date) VALUES ($1, $2, $3, $4)', [username, amount, charityName, new Date().toDateString()], (err, result) => {
     if (err || !result) {

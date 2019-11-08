@@ -2,16 +2,18 @@ const redisController = {};
 const client = require('../databases/redis');
 
 redisController.setData = (req, res, next) => {
-  // console.log(res.locals.data);
-  return next();
-  // client.set('kevinSucks', 'monkey dick', (err, reply) => {
-  //   console.log('inside of set', reply)
-
-  // })
+  console.log('inside redis controller', req.body)
+  client.set(req.body.username, JSON.stringify(req.body.interests), (err, reply) => {
+    console.log('inside of set', reply)
+    return next();
+  })
 }
 redisController.getData = (req, res, next) => {
-  client.get('kevinSucks', (err, reply) => {
-    console.log('inside of get', reply)
+  console.log('inside get data', res.locals)
+  client.get(res.locals.username, (err, reply) => {
+    if (err) return next(err);
+    res.locals.reply = JSON.parse(reply);
+    return next();
   })
 }
 module.exports = redisController;
