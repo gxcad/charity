@@ -39,6 +39,7 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "clone": "^2.1.2",
     "cross-env": "^5.2.1",
     "css-loader": "^3.2.0",
     "file-loader": "^3.0.1",

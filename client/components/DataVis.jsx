@@ -93,6 +93,7 @@ const DataVis = ({ isCharity }) => {
   
 
   const pie = <PieChart className='pieChart'
+
   data={
     sortForPie(dummyData, "categoryName")
   }

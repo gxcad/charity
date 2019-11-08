@@ -89,7 +89,8 @@ const InterestChild = ({
   stars,
   url,
   setIsInterested,
-  isInterested
+  isInterested,
+  categoryName
 }) => {
   return (
     <div>
