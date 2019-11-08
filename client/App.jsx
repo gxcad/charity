@@ -34,13 +34,11 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
-    console.log('before fetch', username)
     let tempLoggedInBoolean;
     fetch('/checkCookie')
       .then(res => res.json())
       .then((data) => {
         const { isLoggedIn, username, allDonations } = data;
-        console.log(isLoggedIn, username, allDonations)
         setIsLoggedIn(isLoggedIn);
         setUsername(username);
         setIsCharity(allDonations);

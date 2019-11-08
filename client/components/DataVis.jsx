@@ -10,10 +10,6 @@ const DataVis = ({ isCharity }) => {
       { title: 'Three', value: 20, color: '#6A2135' },
     ]}
   />;
-  console.log(obj)
-  // isCharity.forEach(obj => {
-  //   total += Number(obj.donatedAmount);
-  // })
   return (
     <div>
       <h1>Data Visual</h1>
