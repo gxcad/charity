@@ -39,7 +39,8 @@ const DonationInput = ({ username, isCharity, setIsCharity }) => {
   }
 
   return (
-    <div>
+
+    <div id='donationInput'>
       <br />
       <form onSubmit={submitting}>
         <input name="charityInput" placeholder='charity name' value={isCharityIn} onChange={(e) => { setIsCharityIn(e.target.value) }}></input>
