@@ -21,11 +21,11 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../client/assets/index.html'));
 });
-app.get('/checkCookie', sessionController.verifySSID, (req, res) => {
-  const { username, isLoggedIn, allDonations } = res.locals;
+app.get('/checkCookie', sessionController.verifySSID, redisController.getData, (req, res) => {
+  const { username, isLoggedIn, allDonations, reply } = res.locals;
   let data;
   if (isLoggedIn) {
-    data = { isLoggedIn, username, allDonations };
+    data = { isLoggedIn, username, allDonations, reply };
   } else {
     data = { isLoggedIn };
   }
@@ -36,22 +36,10 @@ app.delete('/logout', sessionController.deleteSSID, (req, res) => {
   const { isLoggedIn } = res.locals;
   return res.status(200).json({ isLoggedIn })
 })
-
+app.post('/interests', redisController.setData, (req, res) => {
+  return res.json('hi')
+})
 app.use('/build', express.static(path.join(__dirname, 'build')));
-
-
-// app.use('/api', (req, res) => {
-//   console.log('route is working', req.body);
-//   res.status(200).json({ message: 'hi' });
-// });
-
-
-// sessionController.verifySSID,
-app.post('/getdonations',  (req, res) => {
-  console.log('here', req.body)
-  return res.json('hello')
-  // return res.status(200).json({ allDonations: res.locals.allDonations });
-});
 
 app.post('/signup', authController.createUser, sessionController.setSSID, (req, res) => {
   const { isLoggedIn, username } = res.locals;
@@ -63,14 +51,13 @@ app.post('/login', authController.verifyUser, sessionController.setSSID, (req, r
   return res.status(200).json({ isLoggedIn, username });
 });
 
-app.post('/api/fetchData', charityController.fetchData, redisController.setData, (req, res) => {
+app.post('/api/fetchData', charityController.fetchData, (req, res) => {
   return res.json(res.locals.data);
 });
 
 app.post('/donation', donationController.postDonation, (req, res) => {
   return res.status(200).json({ success: res.locals.success });
 });
-
 
 
 /*
