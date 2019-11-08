@@ -34,14 +34,14 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
-    let tempLoggedInBoolean;
     fetch('/checkCookie')
       .then(res => res.json())
       .then((data) => {
-        const { isLoggedIn, username, allDonations } = data;
+        const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
         setUsername(username);
         setIsCharity(allDonations);
+        setIsInterested(reply)
       })
       .catch(err => console.log(err));
   }, []);
@@ -112,7 +112,6 @@ const App = () => {
   const fetchData = () => {
     const fundraisingOrgs = isFundraisingOrg;
     const state = isTwoLetterState;
-    const ids = [];
     const trueIndices = isCategory.map((objects, index) => {
       if (objects[index]) {
         return index + 1;
@@ -145,16 +144,26 @@ const App = () => {
         console.log('something broke inside of .then chain inside of fetchData method')
       })
   }
-
+  const sendInterests = (interests) => {
+    fetch('/interests', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ username, interests })
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log('result inside send interests', result)
+      })
+      .catch(err => {
+        console.log('something broke inside of .then chain inside of sendInterests method')
+      })
+  }
   const changeToSearch = () => {
     setTab(true);
   }
   const changeToDonation = () => {
     setTab(false);
   }
-
-  const sharedHold = [<React.Fragment />, <sharedCompLog />]
-  let sharing = 0;
 
   return (
     <div className="App">
@@ -183,6 +192,7 @@ const App = () => {
             setIsInterested={setIsInterested}
             isInterested={isInterested}
             setIsSearchNumber={setIsSearchNumber}
+            sendInterests={sendInterests}
           />}
         </div>
       }
@@ -190,18 +200,3 @@ const App = () => {
   )
 }
 export default App;
-
-function sharedCompLog  ({}){
-
-  return (
-
-    <React.Fragment>
-      <p> i'm inside the login component </p>
-      <button onClick={ () => {
-        setChooseComp("donations"); 
-      }
-      }>finished</button>
-    </React.Fragment>
-
-  )
-}
