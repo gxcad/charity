@@ -34,7 +34,13 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
-    fetch('/checkCookie')
+    fetch('/checkCookie', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username })
+    })
       .then(res => res.json())
       .then((data) => {
         const { isLoggedIn, username, allDonations, reply } = data;
@@ -152,10 +158,12 @@ const App = () => {
     })
       .then(res => res.json())
       .then(result => {
-        console.log('result inside send interests', result)
+        if (result) {
+          console.log('successfully sent to redis')
+        }
       })
       .catch(err => {
-        console.log('something broke inside of .then chain inside of sendInterests method')
+        console.log('something broke inside of .then chain inside of sendInterests method', err)
       })
   }
   const changeToSearch = () => {

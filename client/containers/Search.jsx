@@ -103,9 +103,10 @@ const InterestChild = ({
   return (
     <div>
       <h3>{name}</h3>
-      <p>{tagLine}</p>
-      <a src={url}>{url}</a>
       <img src={stars}></img>
+      <p>{tagLine}</p>
+      <a href={url}>{url}</a>
+
       <button onClick={() => {
         const deleteAnInterest = [...isInterested];
         const newInterests = [];

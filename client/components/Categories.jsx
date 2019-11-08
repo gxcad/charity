@@ -27,7 +27,7 @@ const Categories = ({
       <h3>{categoryName}<img src={stars}></img></h3>
       <h6>{tagLine}</h6>
       {resultOfConcattingPTags}
-      <a href={url}></a>
+      <a href={url}>{url}</a>
       <p>{location}</p>
       <button id={`interest-button${index}`} disabled={false} onClick={(e) => {
         // interests getting updated with a new object
