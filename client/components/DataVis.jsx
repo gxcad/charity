@@ -114,14 +114,10 @@ const DataVis = ({ isCharity }) => {
   })
 
   return (
-
-    <div>
+    <div id='pie-container'>
       <h1>Data Visual</h1>
       <p>Total: {sum}</p>
-      {pie}
-      <ul>
-
-      </ul>
+      <div id='pie'>{pie}</div>
     </div>
 
   )

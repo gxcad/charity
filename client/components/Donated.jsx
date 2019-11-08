@@ -5,8 +5,8 @@ const Donated = ({ charityName, amount }) => {
   return (
 
     <div className="historyElement">
-      <p>Charity: {charityName} Donation: {amount} </p>
-      <button>share</button>
+      <p className='textWithinElement'>Charity: {charityName} Donation: {amount} </p>
+      <button className='shareButton'>share</button>
     </div>
   )
 }
