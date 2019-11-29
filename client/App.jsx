@@ -7,14 +7,12 @@ import React, { useState, useEffect } from 'react';
 
 const App = () => {
   const [userStatus, setUserStatus] = useState('login');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoginDetails, setIsLoginDetails] = useState({
+  const [isUserDetails, setIsUserDetails] = useState({
     username: '',
     password: ''
-  })
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [signedUp, setSignedUp] = useState(true);
+  const [isSignedUp, setIsSignedUp] = useState(true);
   const [tab, setTab] = useState(true);
   const [isCharity, setIsCharity] = useState([]);
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
@@ -35,9 +33,13 @@ const App = () => {
   const [isFetchedCategoryData, setIsFetchedCategoryData] = useState([]);
   const [isInterested, setIsInterested] = useState([]);
   const [isSearchNumber, setIsSearchNumber] = useState(0);
-
+  const handleLoginDetails = (name, value) => {
+    const updatedLoginDetails = { ...isUserDetails };
+    updatedLoginDetails[name] = value;
+    setIsUserDetails(updatedLoginDetails);
+  }
   useEffect(() => {
-    const { username } = isLoginDetails;
+    const { username } = isUserDetails;
     fetch('/checkCookie', {
       method: 'POST',
       headers: {
@@ -50,7 +52,7 @@ const App = () => {
         const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
         if (username) {
-          setUsername(username);
+          handleLoginDetails('username', username);
         }
         if (allDonations) {
           setIsCharity(allDonations);
@@ -58,30 +60,21 @@ const App = () => {
         if (reply) {
           setIsInterested(reply)
         }
-
       })
       .catch(err => console.log(err));
   }, []);
 
   useEffect(() => {
-    if (signedUp) {
-      setUserStatus('login');
-    } else if (!signedUp) {
-      setUserStatus('signup');
-    }
-  }, [signedUp])
-  const handleLoginDetails = (name, value) => {
-    const updatedLoginDetails = { ...isLoginDetails };
-    updatedLoginDetails[name] = value;
-    setIsLoginDetails(updatedLoginDetails);
-  }
+    const loginOrSignupString = isSignedUp ? 'login' : 'signup';
+    setUserStatus(loginOrSignupString);
+  }, [isSignedUp]);
 
-  const handleSignedUp = () => {
-    setSignedUp(!signedUp);
+  const displaySignUpComponent = () => {
+    setIsSignedUp(!isSignedUp);
   };
 
   const handleLogOut = () => {
-    const { username, password } = isLoginDetails;
+    const { username, password } = isUserDetails;
     const userInfo = {
       username,
       password
@@ -100,8 +93,8 @@ const App = () => {
       })
       .catch(err => console.error(err))
   }
-  const loginSignup = () => {
-    const { username, password } = isLoginDetails;
+  const handleSignupOrLogin = () => {
+    const { username, password } = isUserDetails;
     const userInfo = {
       username,
       password
@@ -117,8 +110,8 @@ const App = () => {
       .then(data => {
         const { isLoggedIn, username } = data;
         setIsLoggedIn(isLoggedIn);
-        if (username) setUsername(username);
-        if (userStatus === 'signup') setSignedUp(true);
+        if (username) handleLoginDetails('username', username);
+        // if (userStatus === 'signup') setSignedUp(true);
       })
       .catch(err => console.error(err));
   }
@@ -182,25 +175,22 @@ const App = () => {
   }
   return (
     <div className="App">
-      {!isLoggedIn && signedUp && <Login
+      {!isLoggedIn && isSignedUp && <Login
         handleLoginDetails={handleLoginDetails}
-        login={loginSignup}
-        handleSignedUp={handleSignedUp}
-      />
-      }
-      {!isLoggedIn && !signedUp && <Signup
-        handleUsername={handleUsernameChange}
-        handlePassword={handlePasswordChange}
-        signup={loginSignup}
-        handleSignedUp={handleSignedUp}
-      />
-      }
-      {isLoggedIn && signedUp &&
+        handleSignupOrLogin={handleSignupOrLogin}
+        displaySignUpComponent={displaySignUpComponent}
+      />}
+      {!isLoggedIn && !isSignedUp && <Signup
+        handleLoginDetails={handleLoginDetails}
+        handleSignupOrLogin={handleSignupOrLogin}
+      />}
+      {isLoggedIn &&
         <div className="main-container">
           <Header handleLogOut={handleLogOut} />
+          <h3>Welcome {isUserDetails.username}</h3>
           {!tab &&
             <Donations
-              username={isLoginDetails.username}
+              username={isUserDetails.username}
               changeToSearch={changeToSearch}
               changeToDonation={changeToDonation}
               isCharity={isCharity}
