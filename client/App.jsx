@@ -9,11 +9,14 @@ const App = () => {
   const [userStatus, setUserStatus] = useState('login');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoginDetails, setIsLoginDetails] = useState({
+    username: '',
+    password: ''
+  })
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signedUp, setSignedUp] = useState(true);
   const [tab, setTab] = useState(true);
   const [isCharity, setIsCharity] = useState([]);
-  //for searching data
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
   const [isFundraisingOrg, setIsFundraisingOrg] = useState(false);
   const [isCategory, setIsCategory] = useState([
@@ -34,6 +37,7 @@ const App = () => {
   const [isSearchNumber, setIsSearchNumber] = useState(0);
 
   useEffect(() => {
+    const { username } = isLoginDetails;
     fetch('/checkCookie', {
       method: 'POST',
       headers: {
@@ -45,9 +49,16 @@ const App = () => {
       .then((data) => {
         const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
-        setUsername(username);
-        setIsCharity(allDonations);
-        setIsInterested(reply)
+        if (username) {
+          setUsername(username);
+        }
+        if (allDonations) {
+          setIsCharity(allDonations);
+        }
+        if (reply) {
+          setIsInterested(reply)
+        }
+
       })
       .catch(err => console.log(err));
   }, []);
@@ -59,20 +70,18 @@ const App = () => {
       setUserStatus('signup');
     }
   }, [signedUp])
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const handleLoginDetails = (name, value) => {
+    const updatedLoginDetails = { ...isLoginDetails };
+    updatedLoginDetails[name] = value;
+    setIsLoginDetails(updatedLoginDetails);
+  }
 
   const handleSignedUp = () => {
     setSignedUp(!signedUp);
   };
 
   const handleLogOut = () => {
+    const { username, password } = isLoginDetails;
     const userInfo = {
       username,
       password
@@ -87,13 +96,12 @@ const App = () => {
       .then(res => res.json())
       .then(data => {
         const { isLoggedIn } = data;
-        setUsername('');
-        setPassword('');
-        setIsLoggedIn(isLoggedIn);
+        location.reload()
       })
       .catch(err => console.error(err))
   }
   const loginSignup = () => {
+    const { username, password } = isLoginDetails;
     const userInfo = {
       username,
       password
@@ -172,17 +180,27 @@ const App = () => {
   const changeToDonation = () => {
     setTab(false);
   }
-
   return (
     <div className="App">
-      {!isLoggedIn && signedUp && <Login handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} login={loginSignup} handleSignedUp={handleSignedUp} />}
-      {!isLoggedIn && !signedUp && <Signup handleUsername={handleUsernameChange} handlePassword={handlePasswordChange} signup={loginSignup} handleSignedUp={handleSignedUp} />}
+      {!isLoggedIn && signedUp && <Login
+        handleLoginDetails={handleLoginDetails}
+        login={loginSignup}
+        handleSignedUp={handleSignedUp}
+      />
+      }
+      {!isLoggedIn && !signedUp && <Signup
+        handleUsername={handleUsernameChange}
+        handlePassword={handlePasswordChange}
+        signup={loginSignup}
+        handleSignedUp={handleSignedUp}
+      />
+      }
       {isLoggedIn && signedUp &&
         <div className="main-container">
           <Header handleLogOut={handleLogOut} />
           {!tab &&
             <Donations
-              username={username}
+              username={isLoginDetails.username}
               changeToSearch={changeToSearch}
               changeToDonation={changeToDonation}
               isCharity={isCharity}

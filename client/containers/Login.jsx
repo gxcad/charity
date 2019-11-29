@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-/* ADD your template code anywhere but please do not delete '' */
 
-const Login = (props) => {
-  const { handleUsername, handlePassword, login, handleSignedUp } = props;
+const Login = ({ handleLoginDetails, login, handleSignedUp }) => {
   return (
     <div className="login-container">
-      <div className="input-container">
+      <form onChange={(e) => {
+        handleLoginDetails(e.target.name, e.target.value)
+      }}>
         <div className="usernameInputs">
-          <p> Username: </p>
-          <input onChange={(e) => handleUsername(e)} type="text" />
+          <label htmlFor='login-username-input-field'>Username:</label>
+          <input id='login-username-input-field' name='username' type="text" />
         </div>
         <div className="passwordInputs">
-          <p> Password: </p>
-          <input onChange={(e) => handlePassword(e)} type="password" />
+          <label htmlFor='login-password-input-field'>Password:</label>
+          <input id='login-password-input-field' name='password' type="password" />
         </div>
-        <div className="login-buttons">
-          <button className="sign-up button" onClick={handleSignedUp}>Sign Up</button>
-          <button className="login button" onClick={login}>Log In</button>
-        </div>
+      </form>
+      <div className="login-buttons">
+        <label htmlFor='login-sign-up button'></label>
+        <button className="login-sign-up button" onClick={handleSignedUp}>Sign In</button>
+        <label htmlFor='login-log-in button'></label>
+        <button className="login-log-in button" onClick={login}>Log In</button>
       </div>
     </div>
   )
