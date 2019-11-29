@@ -3,7 +3,7 @@ import SearchArea from '../components/SearchArea.jsx';
 import CharityDisplay from '../components/CharityDisplay';
 import Categories from '../components/Categories';
 import Tabs from '../components/Tabs';
-
+import Interests from '../components/Interests'
 const Search = ({
   changeToSearch,
   changeToDonation,
@@ -42,13 +42,12 @@ const Search = ({
     <div className="search-container">
       <Tabs
         changeToSearch={changeToSearch}
-        changeToDonation={changeToDonation} />
-      <hr />
+        changeToDonation={changeToDonation}
+      />
       <SearchArea
         isCategory={isCategory}
         setIsCategory={setIsCategory}
       />
-      <hr />
       <CharityDisplay
         setIsTwoLetterState={setIsTwoLetterState}
         setIsFundraisingOrg={setIsFundraisingOrg}
@@ -66,61 +65,7 @@ const Search = ({
   )
 }
 
-const Interests = ({ isInterested, setIsInterested, sendInterests }) => {
-  let interestedChildren;
-  if (isInterested && isInterested.length > 0) {
-    interestedChildren = isInterested.map((obj) => {
-      return (<InterestChild
-        url={obj.url}
-        name={obj.name}
-        tagLine={obj.tagLine}
-        stars={obj.stars}
-        setIsInterested={setIsInterested}
-        isInterested={isInterested}
-      />);
-    })
-  }
 
-  return (
-    <div>
-      <button onClick={() => {
-        // console.log('here inside of onclick for interests', isInterested)
-        sendInterests(isInterested)
-      }}>Save!</button>
-      {interestedChildren ? interestedChildren : false}
-    </div>
-  )
-}
 
-const InterestChild = ({
-  name,
-  tagLine,
-  stars,
-  url,
-  setIsInterested,
-  isInterested,
-}) => {
-  return (
-    <div>
-      <h3>{name}</h3>
-      <img src={stars}></img>
-      <p>{tagLine}</p>
-      <a href={url}>{url}</a>
-
-      <button onClick={() => {
-        const deleteAnInterest = [...isInterested];
-        const newInterests = [];
-        deleteAnInterest.forEach((object, index) => {
-          if (object.name !== name) {
-            newInterests.push(object);
-          } else {
-            newInterests.splice(index, 1);
-          }
-        })
-        setIsInterested(newInterests);
-      }}>I'm not interested anymore</button>
-    </div>
-  )
-}
 
 export default Search;
