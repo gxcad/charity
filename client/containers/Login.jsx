@@ -18,15 +18,15 @@ const Login = ({ handleLoginDetails, handleSignupOrLogin, displaySignUpComponent
             </div>
             <div className="passwordInputs">
               <label htmlFor='login-password-input-field'>Password:</label>
-              <input id='login-password-input-field' name='password' type="password" />
+              <input id='log`2in-password-input-field' name='password' type="password" />
             </div>
           </form>
         </div>
         <div className="login-buttons">
           <label htmlFor='login-sign-up button'></label>
-          <button idtype='submit' className="login-sign-up button" onClick={displaySignUpComponent}>Sign Up</button>
+          <button className="login-sign-up button" onClick={displaySignUpComponent}>Sign Up</button>
           <label htmlFor='login-log-in button'></label>
-          <button className="login-log-in button" onClick={handleSignupOrLogin}>Log In</button>
+          <button type='submit' className="login-log-in button" onClick={handleSignupOrLogin}>Log In</button>
         </div>
       </div>
     </div>
