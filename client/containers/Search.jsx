@@ -60,7 +60,6 @@ const Search = ({
         setIsInterested={setIsInterested}
         sendInterests={sendInterests}
       />
-
     </div>
   )
 }

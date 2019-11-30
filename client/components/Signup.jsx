@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
-/* ADD your template code anywhere but please do not delete '' */
+import React from 'react';
 
-const Signup = (props) => {
-const { handleUsername, handlePassword, signup, handleSignedUp } = props;
+const Signup = ({ handleLoginDetails, handleSignupOrLogin }) => {
   return (
-   <div className="signup-container">
-     <div className="input-container">
-       <div className="usernameInputs">
-        <p> Username: </p>
-        <input onChange={(e) => handleUsername(e)} type="text"  />
-       </div>
-       <div className="passwordInputs">
-        <p> Password: </p>
-        <input onChange={(e) => handlePassword(e)} type="password"  />
-       </div>
-       <div className="signup-buttons">
-         <button className="login button" onClick={handleSignedUp}>Log In</button>
-         <button className="sign-up button" onClick={signup}>Submit</button>
-       </div>
-     </div>
-   </div>
+    <div className="signup-container">
+      <div className="input-container">
+        <h1>SignUp</h1>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSignupOrLogin();
+        }} onChange={(e) => {
+          handleLoginDetails(e.target.name, e.target.value);
+        }}>
+          <div className="usernameInputs">
+            <label htmlFor='signup-username-input-field'>Username:</label>
+            <input id='signup-username-input-field' name='username' type="text" required />
+          </div>
+          <div className="passwordInputs">
+            <label htmlFor='signup-password-input-field'>Password:</label>
+            <input id='signup-password-input-field' name='password' type="password" required />
+          </div>
+          <div className="signup-buttons">
+            <button type='submit' className="sign-up button" onClick={handleSignupOrLogin}>Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 export default Signup;

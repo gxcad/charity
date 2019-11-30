@@ -37,24 +37,25 @@ authController.createUser = (req, res, next) => {
 authController.verifyUser = (req, res, next) => {
   const username = req.body.username;
   pool.query('SELECT * FROM "Users" WHERE username = $1', [username], (err, result) => {
-    if (err || !result) {
+    if (err || !result.rows.length) {
       return next({
         log: `authController.verifyUser: ERROR: ${err}`,
         message: { err: 'authController.verifyUser: ERROR: Check server logs for details' }
       });
-    }
-
-    bcrypt.compare(req.body.password, result.rows[0].password, (err, isMatch) => {
-      if (err || !isMatch) {
-        return next({
-          log: `userController.verifyUser: ERROR: ${err}`,
-          message: { err: 'authController.verifyUser: ERROR: Check server logs for details' }
-        });
-      }
-      res.locals.username = result.rows[0].username;
-      return next();
-    });
-  });
+    } else {
+      bcrypt.compare(req.body.password, result.rows[0].password, (err, isMatch) => {
+        if (!isMatch) {
+          return next({
+            log: `userController.verifyUser: ERROR: ${err}`,
+            message: { err: 'authController.verifyUser: ERROR: Check server logs for details' }
+          });
+        } else {
+          res.locals.username = result.rows[0].username;
+          return next();
+        }
+      });
+    };
+  })
 };
 
 authController.setCookie = (req, res, next) => {

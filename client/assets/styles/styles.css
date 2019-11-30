@@ -60,42 +60,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px red solid;
   height: 100vh;
   background-color: rgb(208, 237, 247);
 }
 
 .input-container {
   background-color: aliceblue;
-  border: 1px red solid;
-  width: 30%;
+  width: 40%;
   height: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
-
+#form-login {
+  display: grid;
+  width: 50%;
+  grid-template-columns: 50% 50%;
+  justify-content: space-evenly;
+}
 .usernameInputs, .passwordInputs {
-  border: 1px red solid;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  align-self: center;
 }
 
 .login-buttons, .signup-buttons {
-  justify-content: space-around;
-  width: 150px;
-  height: 50px;
+  margin-top: 20px;
   display: flex;
-  border: 1px red solid;
+  width: 200px;
+  height: auto;
 }
 
 .sign-up, .login {
   width: 70px;
   height: 40px;
 }
-
+.login-sign-up {
+  width: 80%;
+  height: 30%;
+}
+.login-log-in {
+  width: 80%;
+  height: 30%;
+}
 /* Search Component */
 .search-container {
   display: flex;
@@ -103,9 +109,6 @@
   height: 100%;
   background-color: lightblue;
 }
-
-
-
 
 
 .searchArea-container{ 
@@ -137,7 +140,6 @@
   justify-content: space-between;
   width: 100%;
   height: 5%;
-  border: 1px red solid;
 }
 .searchtab-container {
   display: flex;
