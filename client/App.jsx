@@ -51,15 +51,9 @@ const App = () => {
       .then((data) => {
         const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
-        if (username) {
-          handleLoginDetails('username', username);
-        }
-        if (allDonations) {
-          setIsCharity(allDonations);
-        }
-        if (reply) {
-          setIsInterested(reply)
-        }
+        username ? handleLoginDetails('username', username) : false;
+        allDonations ? setIsCharity(allDonations) : false;
+        reply ? setIsInterested(reply) : false;
       })
       .catch(err => console.log(err));
   }, []);
@@ -74,22 +68,21 @@ const App = () => {
   };
 
   const handleLogOut = () => {
-    const { username, password } = isUserDetails;
-    const userInfo = {
-      username,
-      password
-    }
     fetch('/logout', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userInfo)
+      body: JSON.stringify(isUserDetails)
     })
       .then(res => res.json())
       .then(data => {
-        const { isLoggedIn } = data;
-        location.reload()
+        /**
+         * Three options here, performance benefits? (have not hard tested this yet)
+         */
+        // window.location.href = window.location.href
+        // location.reload()
+        window.location = document.URL;
       })
       .catch(err => console.error(err))
   }
@@ -104,7 +97,7 @@ const App = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userInfo)
+      body: JSON.stringify(isUserDetails)
     })
       .then(res => res.json())
       .then(data => {
@@ -183,6 +176,7 @@ const App = () => {
       {!isLoggedIn && !isSignedUp && <Signup
         handleLoginDetails={handleLoginDetails}
         handleSignupOrLogin={handleSignupOrLogin}
+        displaySignUpComponent={displaySignUpComponent}
       />}
       {isLoggedIn &&
         <div className="main-container">
