@@ -239,9 +239,28 @@
 
 #donatedListArea {
   background-color: rgb(245, 252, 189);
-
 }
 
 #donationInput {
   background-color: lightblue;
+}
+.data-vis-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+#data-vis-pie {
+  width: 400px;
+  height: 400px
+}
+
+#data-vis-color-region {
+  width: 200px;
+  height: auto;
+  text-align: center;
+}
+#pie-data-information {
+  margin-top: 10px;
+  text-align: center;
 }
