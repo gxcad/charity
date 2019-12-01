@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 
 const Donated = ({ charityName, amount }) => {
   return (
-
-    <div className="historyElement">
-      <p className='textWithinElement'>Charity: {charityName} Donation: {amount} </p>
-      <button className='shareButton'>share</button>
+    <div className='donated-container'>
+      <div className="historyElement">
+        <p>Charity: {charityName}</p>
+        <p>Donation: ${amount}</p>
+      </div>
+      <div id='share-button'>
+        <button className='shareButton'>Share <strong>{charityName}</strong>!</button>
+      </div>
     </div>
   )
 }

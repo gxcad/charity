@@ -13,7 +13,7 @@ const App = () => {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(true);
-  const [tab, setTab] = useState(true);
+  const [isSearchTab, setisSearchTab] = useState(true);
   const [isCharity, setIsCharity] = useState([]);
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
   const [isFundraisingOrg, setIsFundraisingOrg] = useState(false);
@@ -145,6 +145,7 @@ const App = () => {
       })
   }
   const sendInterests = (interests) => {
+    const { username } = isUserDetails;
     fetch('/interests', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -160,12 +161,6 @@ const App = () => {
         console.log('something broke inside of .then chain inside of sendInterests method', err)
       })
   }
-  const changeToSearch = () => {
-    setTab(true);
-  }
-  const changeToDonation = () => {
-    setTab(false);
-  }
   return (
     <div className="App">
       {!isLoggedIn && isSignedUp && <Login
@@ -180,21 +175,18 @@ const App = () => {
       />}
       {isLoggedIn &&
         <div className="main-container">
-          <Header handleLogOut={handleLogOut} />
-          <h3>Welcome {isUserDetails.username}</h3>
-          {!tab &&
+          <Header handleLogOut={handleLogOut} username={isUserDetails.username} />
+          {!isSearchTab &&
             <Donations
               username={isUserDetails.username}
-              changeToSearch={changeToSearch}
-              changeToDonation={changeToDonation}
               isCharity={isCharity}
               setIsCharity={setIsCharity}
+              isSearchTab={isSearchTab}
+              setisSearchTab={setisSearchTab}
             />}
-          {tab && <Search
+          {isSearchTab && <Search
             isCategory={isCategory}
             setIsCategory={setIsCategory}
-            changeToSearch={changeToSearch}
-            changeToDonation={changeToDonation}
             fetchData={fetchData}
             setIsTwoLetterState={setIsTwoLetterState}
             setIsFundraisingOrg={setIsFundraisingOrg}
@@ -203,6 +195,8 @@ const App = () => {
             isInterested={isInterested}
             setIsSearchNumber={setIsSearchNumber}
             sendInterests={sendInterests}
+            isSearchTab={isSearchTab}
+            setisSearchTab={setisSearchTab}
           />}
         </div>
       }

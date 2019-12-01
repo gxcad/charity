@@ -3,8 +3,9 @@ import InterestChild from './InterestChild.jsx'
 const Interests = ({ isInterested, setIsInterested, sendInterests }) => {
   let interestedChildren;
   if (isInterested && isInterested.length > 0) {
-    interestedChildren = isInterested.map((obj) => {
+    interestedChildren = isInterested.map((obj, i) => {
       return (<InterestChild
+        key={`interest-child${i}`}
         url={obj.url}
         name={obj.name}
         tagLine={obj.tagLine}
@@ -16,12 +17,15 @@ const Interests = ({ isInterested, setIsInterested, sendInterests }) => {
   }
 
   return (
-    <div>
-      <button onClick={() => {
-        // console.log('here inside of onclick for interests', isInterested)
+    <div id='interested-charities'>
+      <h1>Interested Charities</h1>
+      <button id='save-charities' onClick={() => {
         sendInterests(isInterested)
-      }}>Save!</button>
-      {interestedChildren ? interestedChildren : false}
+      }}>Save These Charities!</button>
+      <div id='interests-children'>
+        {interestedChildren ? interestedChildren : false}
+      </div>
+
     </div>
   )
 }
