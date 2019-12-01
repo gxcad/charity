@@ -1,4 +1,3 @@
-import CharityDisplay from './CharityDisplay.jsx';
 import React from 'react';
 
 const SearchArea = ({ isCategory, setIsCategory }) => {
@@ -30,14 +29,15 @@ const SearchArea = ({ isCategory, setIsCategory }) => {
   });
 
   return (
-    <div className='searchArea-container'>
+    <div className='category-area'>
       <div className="false-area">
+        {falseButtons.length > 0 ? <p>Category: </p> : false}
         {falseButtons}
       </div>
       <div className="true-area">
+        {trueButtons.length > 0 ? <p>Selected: </p> : false}
         {trueButtons}
       </div>
-
     </div>
 
   )
