@@ -14,20 +14,20 @@ const Login = ({ handleLoginDetails, handleSignupOrLogin, displaySignUpComponent
             handleSignupOrLogin()
           }}>
             <div className="usernameInputs">
-              <label htmlFor='login-username-input-field'>Username:</label>
+              <label htmlFor='login-username-input-field'>Username: </label>
               <input id='login-username-input-field' name='username' type="text" />
             </div>
             <div className="passwordInputs">
-              <label htmlFor='login-password-input-field'>Password:</label>
+              <label htmlFor='login-password-input-field'>Password: </label>
               <input id='log`2in-password-input-field' name='password' type="password" />
             </div>
+            <label htmlFor='login-log-in-button'></label>
+            <input type='submit' className="login-log-in-button" value={`Log In`} />
           </form>
         </div>
         <div className="login-buttons">
-          <label htmlFor='login-sign-up button'></label>
-          <button className="login-sign-up button" onClick={displaySignUpComponent}>Sign Up</button>
-          <label htmlFor='login-log-in button'></label>
-          <button type='submit' className="login-log-in button" onClick={handleSignupOrLogin}>Log In</button>
+          <label htmlFor='login-sign-up-button'></label>
+          <button className="login-sign-up-button" onClick={displaySignUpComponent}>Sign Up</button>
         </div>
       </div>
     </div>
