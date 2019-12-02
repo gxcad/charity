@@ -9,7 +9,7 @@ const Header = ({ handleLogOut, username }) => {
         </div>
         <button className="logout button" onClick={handleLogOut}>Log Out</button>
       </div>
-      <h3>Welcome {username}</h3>
+      <h3 id='welcome'>Welcome {username}</h3>
     </React.Fragment>
   )
 }

@@ -51,6 +51,7 @@ authController.verifyUser = (req, res, next) => {
           });
         } else {
           res.locals.username = result.rows[0].username;
+          console.log(res.locals)
           return next();
         }
       });
