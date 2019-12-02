@@ -19,7 +19,7 @@ const Login = ({ handleLoginDetails, handleSignupOrLogin, displaySignUpComponent
             </div>
             <div className="passwordInputs">
               <label htmlFor='login-password-input-field'>Password:</label>
-              <input id='log`2in-password-input-field' name='password' type="password" />
+              <input id='login-password-input-field' name="password" type="password" />
             </div>
           </form>
         </div>

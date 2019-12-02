@@ -9,7 +9,7 @@ const App = () => {
   const [userStatus, setUserStatus] = useState('login');
   const [isUserDetails, setIsUserDetails] = useState({
     username: '',
-    password: ''
+    password: '',
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(true);
@@ -18,17 +18,17 @@ const App = () => {
   const [isTwoLetterState, setIsTwoLetterState] = useState('');
   const [isFundraisingOrg, setIsFundraisingOrg] = useState(false);
   const [isCategory, setIsCategory] = useState([
-    { '0': false, name: 'Animals' },
-    { '1': false, name: 'Arts, Culture, Humanities' },
-    { '2': false, name: 'Education' },
-    { '3': false, name: 'Environment' },
-    { '4': false, name: 'Health' },
-    { '5': false, name: 'Human Services' },
-    { '6': false, name: 'International' },
-    { '7': false, name: 'Human and Civil Rights' },
-    { '8': false, name: 'Religion' },
-    { '9': false, name: 'Community Development' },
-    { '10': false, name: 'Research and Public Policy' }
+    { 0: false, name: 'Animals' },
+    { 1: false, name: 'Arts, Culture, Humanities' },
+    { 2: false, name: 'Education' },
+    { 3: false, name: 'Environment' },
+    { 4: false, name: 'Health' },
+    { 5: false, name: 'Human Services' },
+    { 6: false, name: 'International' },
+    { 7: false, name: 'Human and Civil Rights' },
+    { 8: false, name: 'Religion' },
+    { 9: false, name: 'Community Development' },
+    { 10: false, name: 'Research and Public Policy' },
   ]);
   const [isFetchedCategoryData, setIsFetchedCategoryData] = useState([]);
   const [isInterested, setIsInterested] = useState([]);
@@ -47,7 +47,7 @@ const App = () => {
       },
       body: JSON.stringify({ username })
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => {
         const { isLoggedIn, username, allDonations, reply } = data;
         setIsLoggedIn(isLoggedIn);
@@ -55,7 +55,7 @@ const App = () => {
         allDonations ? setIsCharity(allDonations) : false;
         reply ? setIsInterested(reply) : false;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -75,8 +75,8 @@ const App = () => {
       },
       body: JSON.stringify(isUserDetails)
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res)=> res.json())
+      .then((data) => {
         /**
          * Three options here, performance benefits? (have not hard tested this yet)
          */
@@ -84,13 +84,13 @@ const App = () => {
         // location.reload()
         window.location = document.URL;
       })
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err));
   }
   const handleSignupOrLogin = () => {
     const { username, password } = isUserDetails;
     const userInfo = {
       username,
-      password
+      password,
     }
     fetch(`/${userStatus}`, {
       method: 'POST',
@@ -99,14 +99,14 @@ const App = () => {
       },
       body: JSON.stringify(isUserDetails)
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         const { isLoggedIn, username, reply } = data;
         setIsLoggedIn(isLoggedIn);
         if (username) handleLoginDetails('username', username);
         if (reply) setIsInterested(reply);
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }
   //fetching data using a post request, sending user input as body
   const fetchData = () => {
@@ -116,7 +116,7 @@ const App = () => {
       if (objects[index]) {
         return index + 1;
       };
-    }).filter(elements => elements !== undefined);
+    }).filter((elements) => elements !== undefined);
     fetch('/api/fetchData', {
       method: 'POST',
       headers: { "Content-Type": 'application/json' },
@@ -126,40 +126,40 @@ const App = () => {
           state,
           ids: trueIndices,
           searchNumber: isSearchNumber
-        }
-      })
+        },
+      }),
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         //setting category data to be passed to category container
         const data = [];
-        result.forEach(array => {
-          array.forEach(object => {
+        result.forEach((array) => {
+          array.forEach((object) => {
             data.push(object);
-          })
-        })
-        setIsFetchedCategoryData(data)
+          });
+        });
+        setIsFetchedCategoryData(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('something broke inside of .then chain inside of fetchData method')
-      })
+      });
   }
   const sendInterests = (interests) => {
     const { username } = isUserDetails;
     fetch('/interests', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ username, interests })
+      body: JSON.stringify({ username, interests }),
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         if (result) {
-          console.log('successfully sent to redis')
+          console.log('successfully sent to redis');
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('something broke inside of .then chain inside of sendInterests method', err)
-      })
+      });
   }
   const deleteDonation = (index) => {
     const isCharityClone = [];
