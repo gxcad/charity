@@ -71,12 +71,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin: 10px 10px 10px 10px;
   align-items: center;
 }
 #form-login {
-  display: grid;
-  width: 50%;
-  grid-template-columns: 50% 50%;
+  display: flex;
+  align-items: center;
+  text-align: center;
   justify-content: space-evenly;
 }
 .usernameInputs, .passwordInputs {
@@ -84,8 +85,9 @@
 }
 
 .login-buttons, .signup-buttons {
-  margin-top: 20px;
+  margin-top: -20px;
   display: flex;
+  justify-content: center;
   width: 200px;
   height: auto;
 }
@@ -382,4 +384,13 @@
 }
 .donations-update-delete-buttons, #delete{
   color: red;
+}
+
+.login-sign-up-button{
+  width: 100px;
+  
+}
+.login-log-in-button {
+  width: 100px;
+  margin-top: 10px;
 }
