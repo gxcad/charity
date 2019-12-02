@@ -36,6 +36,10 @@ app.delete('/logout', sessionController.deleteSSID, (req, res) => {
   const { isLoggedIn } = res.locals;
   return res.status(200).json({ isLoggedIn })
 })
+app.delete('/charity', donationController.deleteDonation, (req, res) => {
+  return res.json(res.locals.deleted);
+})
+
 app.post('/interests', redisController.setData, (req, res) => {
   return res.json(true)
 })
@@ -59,7 +63,10 @@ app.post('/api/fetchData', charityController.fetchData, (req, res) => {
 app.post('/donation', donationController.postDonation, (req, res) => {
   return res.status(200).json({ success: res.locals.success });
 });
-
+app.put('/updateDonation', donationController.updateDonation, (req, res) => {
+  console.log(req.body)
+  return res.json(res.locals.updated)
+})
 
 /*
 Catch all routes that do not exist

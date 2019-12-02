@@ -358,3 +358,28 @@
 .donated-container-margin-top-spacing {
   margin-top: 50px;
 }
+.ReactModal__Content--after-open {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  width: 300px;
+  height: 300px;
+}
+.donations-update-delete-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0px 20px 0px 20px;
+}
+.donations-update-delete-buttons, #edit{
+  color: rgb(17, 168, 17);
+}
+.donations-update-delete-buttons, #delete{
+  color: red;
+}

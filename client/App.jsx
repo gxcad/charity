@@ -161,6 +161,52 @@ const App = () => {
         console.log('something broke inside of .then chain inside of sendInterests method', err)
       })
   }
+  const deleteDonation = (index) => {
+    const isCharityClone = [];
+    for (let i = 0; i < isCharity.length; i += 1) {
+      if (i !== index) {
+        isCharityClone.push(isCharity[i]);
+      }
+    }
+    setIsCharity(isCharityClone);
+    fetch('/charity', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _id: isCharity[index]._id })
+    })
+      .then(res => {
+        console.log(res);
+        console.log('successfully deleted from database');
+      })
+      .catch(err => {
+        console.log('fetch to /charity to delete a charity has broke')
+      })
+  }
+  const editDonation = (index, newCharityData) => {
+    const isCharityClone = [];
+    let updatedDataRow;
+    for (let i = 0; i < isCharity.length; i += 1) {
+      if (i !== index) {
+        isCharityClone.push(isCharity[i]);
+      } else {
+        const updatedData = { ...isCharity[i], ...newCharityData };
+        isCharityClone.push(updatedData);
+        updatedDataRow = updatedData;
+      }
+    }
+    setIsCharity(isCharityClone);
+    fetch('/updateDonation', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newData: updatedDataRow })
+    })
+      .then(res => {
+        console.log(res, 'successful update!')
+      })
+      .catch(err => {
+        console.log('/updateDonation route has broken')
+      })
+  }
   return (
     <div className="App">
       {!isLoggedIn && isSignedUp && <Login
@@ -183,6 +229,8 @@ const App = () => {
               setIsCharity={setIsCharity}
               isSearchTab={isSearchTab}
               setisSearchTab={setisSearchTab}
+              deleteDonation={deleteDonation}
+              editDonation={editDonation}
             />}
           {isSearchTab && <Search
             isCategory={isCategory}
