@@ -7,7 +7,9 @@ const Donations = ({
   setIsCharity,
   username,
   isSearchTab,
-  setisSearchTab
+  setisSearchTab,
+  deleteDonation,
+  editDonation
 }) => {
   return (
     <React.Fragment>
@@ -17,7 +19,13 @@ const Donations = ({
       <div className='donated-container-margin-top-spacing'>
         <div className='donated-container'>
           <div className='donation-list'>
-            <DonatedList username={username} isCharity={isCharity} setIsCharity={setIsCharity} />
+            <DonatedList
+              username={username}
+              isCharity={isCharity}
+              setIsCharity={setIsCharity}
+              deleteDonation={deleteDonation}
+              editDonation={editDonation}
+            />
           </div>
           <div className='data-visualizer'>
             <DataVis isCharity={isCharity} />
