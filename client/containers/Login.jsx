@@ -4,7 +4,8 @@ const Login = ({ handleLoginDetails, handleSignupOrLogin, displaySignUpComponent
   return (
     <div className="login-container">
       <div className="input-container">
-        <h1>Login</h1>
+        <h1>Welcome to Momentum</h1>
+        <h3>Login</h3>
         <div id='form-login'>
           <form onChange={(e) => {
             handleLoginDetails(e.target.name, e.target.value)

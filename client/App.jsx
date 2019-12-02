@@ -101,10 +101,10 @@ const App = () => {
     })
       .then(res => res.json())
       .then(data => {
-        const { isLoggedIn, username } = data;
+        const { isLoggedIn, username, reply } = data;
         setIsLoggedIn(isLoggedIn);
         if (username) handleLoginDetails('username', username);
-        // if (userStatus === 'signup') setSignedUp(true);
+        if (reply) setIsInterested(reply);
       })
       .catch(err => console.error(err));
   }

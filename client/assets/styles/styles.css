@@ -17,6 +17,7 @@
   height: 8%;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .left-header {
@@ -24,7 +25,9 @@
   display: flex;
   width: 30%;
 }
-
+#welcome {
+  margin: -5px 0px 0px 50px;
+}
 
 .momentum {
   letter-spacing: 1.5px;
@@ -47,7 +50,7 @@
   cursor: pointer;
 }
 .navigate-component-tab {
-  margin-right: 35%;
+  margin-left: 35%;
   background-color: #d0edf7;
   text-align: center;
   border: 1px solid slategrey;
@@ -109,7 +112,7 @@
 }
 .tabs-area {
   position: absolute;
-  right: 0;
+  left: 0;
   margin-top: 100px;
   height: 10px;
 }
@@ -119,10 +122,10 @@
   width: 30%;
   position: absolute;
   margin: 50px;
-  right: 0;
+  left: 0;
   border: 1px solid slategrey;
   background-color: #d0edf7;
-  border-bottom: 0px solid white;
+  border-bottom: 1px solid slategrey;
 }
 
 #interests-area {
@@ -132,7 +135,7 @@
 }
 #array-of-categories-area {
   position: absolute;
-  left: 0;
+  right: 0;
   width: 65%;
   margin: 50px 0px 0px 0px;
   display:flex;
@@ -140,15 +143,14 @@
   justify-content: center;
   align-items: center;
 }
-.category-area {
-  border-top: 1px solid slategrey;
+/* .category-area {
 
-}
+} */
 .false-area {
   border-bottom: 1px solid slategrey;
 }
 .true-area {
-  border-bottom: 1px solid slategrey;
+  /* border-bottom: 1px solid slategrey; */
 }
 #search-area-form {
   margin: 10px;
@@ -174,19 +176,22 @@
 #interested-charities {
   align-items: center;
   text-align: center;
-  border-top: 1px solid black;
+  margin: 20px;
 }
 #interests-children {
   margin: 5px 5px;
 }
+
 #interest-child {
   background-color: #d0edf7;
   display: flex;
   flex-direction: column;
-  margin: 5px;
+  width: 96.5%;
+  margin-left: -4px;
   padding: 10px 10px;
   border: 1px solid slategrey;
   align-items: center;
+  margin-top: 5px;
   text-align: center;
 }
 #not-interested-button {
@@ -334,6 +339,7 @@
 }
 .donation-list {
   width: 50%;
+  margin-left: 50px;
   border: 1px solid black;
   border-radius: 2px;
   margin-top: 5px;

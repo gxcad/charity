@@ -47,8 +47,9 @@ app.post('/signup', authController.createUser, (req, res) => {
 });
 
 app.post('/login', authController.verifyUser, sessionController.setSSID, redisController.getData, (req, res) => {
-  const { isLoggedIn, username } = res.locals;
-  return res.status(200).json({ isLoggedIn, username });
+
+  const { isLoggedIn, username, reply } = res.locals;
+  return res.status(200).json({ isLoggedIn, username, reply });
 });
 
 app.post('/api/fetchData', charityController.fetchData, (req, res) => {
